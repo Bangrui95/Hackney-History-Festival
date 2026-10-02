@@ -1,0 +1,2448 @@
+/* Foundations */
+:root {
+  --festival-green: #26ff00;
+  --festival-forest: #02472a;
+  --page-white: #ffffff;
+  --page-canvas: rgb(247 241 232 / 58%);
+  --header-height: 80px;
+  --header-inline-start: 28px;
+  --hero-title-edge-gap: 3px;
+  --card-corner-radius: 16.5px;
+  /* Canonical values for the reusable feature-card family: Join, About,
+     Festival on Screen and Newsletter. Use a documented exception only for
+     a deliberately special composition. */
+  --standard-card-inline-start: 4.5cqw;
+  --standard-card-inline-end: 2.7cqw;
+  --standard-card-content-block-start: 3.9cqw;
+  --standard-card-content-block-end: 4.8cqw;
+  --standard-card-tab-overlap: 0.585cqw;
+  --standard-card-tab-size: 5.809cqw;
+  --standard-card-tab-line-height: 0.84;
+  --standard-card-tab-letter-spacing: -0.04em;
+  --standard-card-tab-stroke: 0.33em;
+  --standard-card-heading-size: 5.2614cqw;
+  --standard-card-heading-line-height: 1.197;
+  --standard-card-heading-letter-spacing: -0.035em;
+  --standard-card-body-size: 2.6859cqw;
+  --standard-card-body-line-height: 1.2;
+  --standard-card-body-letter-spacing: -0.025em;
+  --standard-card-heading-body-gap: 0.405cqw;
+  --standard-card-button-block-padding: 1.4265cqw;
+  --standard-card-button-inline-padding: 2.7cqw;
+  --standard-card-button-size: 3.3cqw;
+  font-family: "Decalotype", Arial, sans-serif;
+  font-synthesis: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Keep scrolling available while removing every visible scrollbar. */
+html,
+body,
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html {
+  min-width: 320px;
+  background: var(--page-canvas);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--festival-forest);
+  background: transparent;
+}
+
+body.panel-open {
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+/* Keep the default cursor as an arrow; only real controls advertise a click.
+   Text remains selectable with the mouse. */
+html,
+body,
+body *,
+body *::before,
+body *::after {
+  cursor: default;
+}
+
+button:not(:disabled),
+a[href],
+button:not(:disabled) *,
+a[href] * {
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Site shell and header */
+.site-shell {
+  width: 100%;
+  max-width: 1920px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-top: var(--header-height);
+  overflow: clip;
+  background: var(--page-canvas);
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  width: min(100%, 1920px);
+  height: var(--header-height);
+  padding: 0 31px 0 var(--header-inline-start);
+  background: var(--festival-forest);
+  transform: translateX(-50%);
+}
+
+body.menu-open .site-header {
+  z-index: 130;
+}
+
+.brand {
+  display: block;
+  flex: 0 0 auto;
+  width: 167px;
+}
+
+.brand:focus-visible,
+.icon-button:focus-visible,
+.join-button:focus-visible,
+.menu-primary-links button:focus-visible,
+.menu-primary-links a:focus-visible,
+.menu-secondary-links button:focus-visible,
+.menu-secondary-links a:focus-visible,
+.social-button:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 4px;
+}
+
+.brand img {
+  width: 100%;
+  height: auto;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.join-button,
+.icon-button {
+  flex: 0 0 auto;
+  border: 0;
+  color: var(--festival-forest);
+  background: transparent;
+}
+
+.join-button {
+  width: 234px;
+  height: 43.2px;
+  margin-right: 38px;
+  border-radius: 999px;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  font-size: 28.8px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.join-button:hover {
+  color: var(--festival-green);
+  background: var(--page-white);
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.search-button {
+  width: 52px;
+  margin-right: 24px;
+}
+
+.menu-button {
+  width: 52px;
+}
+
+.search-button img,
+.menu-button img {
+  width: 100%;
+  height: auto;
+}
+
+.icon-button:hover img {
+  filter: brightness(0) invert(1);
+}
+
+/* Hero */
+.hero {
+  --hero-inline-end: clamp(16px, 2.083333vw, 40px);
+  --hero-top-gap: 15px;
+  position: relative;
+  box-sizing: content-box;
+  container-type: inline-size;
+  display: grid;
+  width: calc(100% - var(--header-inline-start) - var(--hero-inline-end));
+  margin-inline: var(--header-inline-start) var(--hero-inline-end);
+  padding-top: var(--hero-top-gap);
+  padding-bottom: 0;
+  /* On tall screens, let the content after the artwork follow it immediately. */
+  place-items: start;
+}
+
+.hero-artwork {
+  position: relative;
+  width: var(--hero-artwork-width, 100%);
+  aspect-ratio: 2099 / 1164;
+}
+
+.hero-artwork-image,
+.hero-artwork-title {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-width: none;
+}
+
+.hero-artwork-image {
+  top: 0;
+  left: 0;
+  width: 72.7966%;
+}
+
+.hero-artwork-title {
+  top: var(--hero-title-top, 0px);
+  left: var(--hero-title-offset, 0px);
+  width: var(--hero-title-width, 58%);
+}
+
+/* Desktop: title is centred inside the image, with a 3px edge clearance. */
+@media (min-width: 1201px) {
+  .hero {
+    place-items: start center;
+    padding-bottom: calc(var(--hero-top-gap) + var(--hero-title-overflow, 0px));
+  }
+
+  .hero-artwork-image {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-artwork-title {
+    left: 50%;
+    width: var(--hero-title-width, 72.7966%);
+    transform: translateX(-50%);
+  }
+
+  .festival-dates .festival-dates-heading {
+    box-sizing: border-box;
+    margin-top: 24px;
+    padding: 0;
+  }
+
+  .festival-dates .festival-dates-panel {
+    box-sizing: border-box;
+    padding-inline: 0;
+  }
+
+  .festival-dates-panel .festival-date-row {
+    width: 100%;
+    margin-inline: 0;
+    align-items: end;
+  }
+
+  .festival-dates-panel .festival-date-row h3,
+  .festival-dates-panel .festival-date-row time {
+    font-size: 3.5076cqw;
+    font-weight: 600;
+  }
+
+  .festival-dates-panel .festival-date-row h3 {
+    font-size: 5.2614cqw;
+  }
+
+  .festival-dates-panel .festival-date-row time {
+    justify-self: end;
+    text-align: end;
+  }
+
+  .festival-dates-panel .festival-satellite-events {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1200px) {
+  .festival-dates-panel .festival-date-row {
+    align-items: end;
+  }
+
+  .festival-dates-panel .festival-date-row h3 {
+    font-size: 5.2614cqw;
+  }
+
+  .festival-dates-panel .festival-date-row time {
+    font-size: 3.5076cqw;
+  }
+}
+
+/* Tablet and phone: the title is centred with a 3px inset from the image
+   edges, while its first line stays on the image bottom. */
+@media (max-width: 1200px) {
+  .hero {
+    width: calc(100% - var(--header-inline-start) - var(--header-inline-start));
+    margin-inline: var(--header-inline-start);
+  }
+
+  .hero-artwork {
+    width: 100%;
+    /* 1207/1766 image height + the title's lower half + 15px clearance. */
+    height: calc(76.5550cqw + var(--hero-top-gap));
+    aspect-ratio: auto;
+  }
+
+  .hero-artwork-image {
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .hero-artwork-title {
+    /* Align the visible first-line baseline with the image bottom. */
+    top: calc(59.9972cqw + 0.501px);
+    left: 50%;
+    width: calc(100% - (var(--hero-title-edge-gap) * 2));
+    transform: translateX(-50%);
+  }
+}
+
+/* Join our Festival */
+.join-festival {
+  /* Match the shared gap used before the Newsletter card below. */
+  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  background: var(--page-canvas);
+}
+
+.join-festival-card {
+  --card-inline-start: var(--standard-card-inline-start);
+  --card-inline-end: var(--standard-card-inline-end);
+  container-type: inline-size;
+  position: relative;
+  padding: 0;
+  overflow: visible;
+  border-radius: clamp(16px, 2.2418vw, 33px);
+  background: var(--festival-green);
+}
+
+.join-festival-tab {
+  position: absolute;
+  right: var(--standard-card-inline-end);
+  bottom: calc(100% - var(--standard-card-tab-overlap));
+  z-index: 1;
+  margin: 0;
+  color: var(--page-white);
+  font-family: "Decalotype", Arial, sans-serif;
+  font-size: var(--standard-card-tab-size);
+  font-weight: 900;
+  line-height: var(--standard-card-tab-line-height);
+  letter-spacing: var(--standard-card-tab-letter-spacing);
+  white-space: nowrap;
+  -webkit-text-stroke: var(--standard-card-tab-stroke) var(--festival-green);
+  paint-order: stroke fill;
+}
+
+.join-festival-content {
+  display: grid;
+  padding: var(--card-content-block-start) var(--card-inline-end)
+    var(--card-content-block-end) var(--card-inline-start);
+  gap: 2.25cqw;
+}
+
+.join-festival-headline,
+.join-festival-copy {
+  max-width: 100%;
+  margin: 0;
+  color: var(--festival-forest);
+}
+
+.join-festival-headline {
+  font-size: var(--standard-card-heading-size);
+  font-weight: 800;
+  line-height: 0.9756;
+  letter-spacing: var(--standard-card-heading-letter-spacing);
+  text-transform: uppercase;
+}
+
+.join-festival-copy {
+  max-width: 100%;
+  font-size: var(--standard-card-body-size);
+  font-weight: 600;
+  line-height: 0.8918;
+  letter-spacing: var(--standard-card-body-letter-spacing);
+}
+
+.join-festival-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9cqw;
+  margin-top: 0.75cqw;
+}
+
+.join-festival-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 5.095cqw;
+  padding: 0 0.475em;
+  border: 0.4076cqw solid var(--festival-forest);
+  border-radius: 3.099cqw;
+  color: var(--festival-forest);
+  font-size: 4.143cqw;
+  font-weight: 700;
+  line-height: 0.9;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.join-festival-actions a:hover {
+  border-color: var(--page-white);
+  color: var(--festival-green);
+  background: var(--page-white);
+}
+
+.join-festival-actions a:focus-visible {
+  outline: 0.3cqw solid var(--page-white);
+  outline-offset: 0.3cqw;
+}
+
+/* Festival dates */
+.festival-dates {
+  background: var(--page-canvas);
+}
+
+.festival-dates-heading {
+  display: flex;
+  align-items: end;
+  position: relative;
+  z-index: 2;
+  container-type: inline-size;
+  min-height: clamp(64.8px, 5.3438vw, 102.6px);
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  /* The label shares the same scale and overlap rule as the feature-card tabs. */
+  color: var(--page-white);
+  transform: none;
+}
+
+.festival-dates-heading .festival-type-layer {
+  margin-left: 4.5cqw;
+  font-size: 7.8618cqw;
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.04em;
+  transform: translateY(0.585cqw);
+}
+
+.festival-dates-heading .festival-type-outline {
+  -webkit-text-stroke: 0.33em var(--festival-forest);
+}
+
+.festival-dates-panel {
+  container-type: inline-size;
+  min-height: clamp(275.4px, 22.6968vw, 435.6px);
+  padding: clamp(29.7px, 2.489vw, 47.7px) 0 clamp(9.9px, 0.75vw, 14.4px);
+  color: var(--page-white);
+  position: relative;
+  z-index: 1;
+  border-radius: var(--card-corner-radius);
+  background: var(--festival-forest);
+}
+
+.festival-dates-content {
+  display: grid;
+  align-content: start;
+  padding-inline: 2.5cqw;
+  row-gap: clamp(16.2px, 1.3125vw, 25.2px);
+}
+
+.festival-date-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9573fr) minmax(0, 1fr);
+  align-items: baseline;
+}
+
+.festival-date-row h3,
+.festival-date-row time {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(34.2px, 3.2485vw, 62.1px);
+  font-weight: 700;
+  line-height: 1.1948;
+  letter-spacing: -0.015em;
+}
+
+.festival-date-row time {
+  justify-self: start;
+}
+
+/* These are two real text layers: green outline below, white type above. */
+.festival-type-layer {
+  position: relative;
+  z-index: 999;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.festival-type-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.42em var(--festival-forest);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.festival-type-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+  -webkit-text-fill-color: var(--page-white);
+  pointer-events: none;
+}
+
+.festival-satellite-events {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.3em;
+  margin: 0;
+  color: var(--festival-green);
+  font-size: clamp(16.2px, 1.6242vw, 31.05px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+/* Contact and 2026 recap */
+.contact-section {
+  --recap-intro-bottom-space: clamp(25.2px, 2.8125vw, 54px);
+  display: flow-root;
+  padding-bottom: 0;
+  background: var(--page-canvas);
+}
+
+.contact-card {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+  aspect-ratio: 1472 / 246.6;
+  /* Sit behind the rounded lower edge of the dates card. */
+  margin: calc(-1 * var(--card-corner-radius)) auto 0;
+  padding: 1.3451cqw 2.7174cqw;
+  row-gap: 1.9565cqw;
+  overflow: hidden;
+  border-radius: 0 0 var(--card-corner-radius) var(--card-corner-radius);
+  text-align: center;
+  background: var(--festival-green);
+}
+
+.contact-card-message,
+.contact-card-email {
+  margin: 0;
+  font-size: clamp(25.2px, 5.0676cqw, 74.5956px);
+  font-weight: 700;
+  line-height: 1.1944;
+  letter-spacing: -0.02em;
+}
+
+.contact-card-message {
+  color: var(--festival-forest);
+  /* Nudge the first line down without moving the email or resizing the card. */
+  transform: translateY(clamp(4px, 0.5cqw, 8px));
+}
+
+.contact-card-email {
+  font-size: clamp(23.4px, 4.635cqw, 68.4px);
+  color: var(--page-white);
+  text-decoration: none;
+}
+
+.contact-card-email:hover {
+  color: var(--festival-forest);
+}
+
+.contact-card-email:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+.hhf-2026-surface {
+  container-type: inline-size;
+  position: relative;
+  margin-top: clamp(32px, 3.33335vw, 64px);
+  padding-bottom: var(--recap-intro-bottom-space);
+  background: transparent;
+}
+
+/* The dark field and every typographic layer are editable HTML/CSS. */
+.hhf-2026-surface::before {
+  position: absolute;
+  z-index: 0;
+  inset: 11.0734cqw 0 0;
+  content: "";
+  background: var(--festival-forest);
+  border-radius: 1.1549cqw 1.1549cqw 0 0;
+  pointer-events: none;
+}
+
+.hhf-2026-composition {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 1472 / 1288;
+}
+
+.hhf-2026-heading {
+  position: relative;
+  z-index: 2;
+  /* Shared inset for the year, its outline and the kicker. */
+  left: 2.6cqw;
+  margin: 0;
+}
+
+.hhf-2026-year,
+.hhf-2026-kicker,
+.hhf-2026-festival-title {
+  margin: 0;
+  color: var(--festival-green);
+  /* The supplied layout has no tracking adjustment.  Keep the native metrics
+     of Bricolage Grotesque and Decalotype so the source widths are preserved. */
+  letter-spacing: normal;
+}
+
+.hhf-2026-year {
+  --hhf-2026-year-stroke: 0.28em;
+  position: absolute;
+  /* The fluorescent year itself is the positioning reference: its baseline
+     sits on the card's top edge.  The forest outline is decoration only. */
+  top: -1.07cqw;
+  left: 0;
+  z-index: 3;
+  width: 43.3424cqw;
+  height: 11.0734cqw;
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+  font-size: 13.4442cqw;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.2;
+  isolation: isolate;
+}
+
+/* The year is a two-layer lock-up: the solid forest outline belongs behind
+   the lime lettering instead of narrowing or colouring the front glyphs. */
+.hhf-2026-year-outline,
+.hhf-2026-year-fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.hhf-2026-year-outline {
+  z-index: 0;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: var(--hhf-2026-year-stroke) var(--festival-forest);
+  paint-order: stroke fill;
+}
+
+.hhf-2026-year-fill {
+  z-index: 1;
+  color: var(--festival-green);
+}
+
+.hhf-2026-kicker {
+  position: absolute;
+  /* Keep one normal line gap below the year, while its baseline remains
+     precisely on the image's top edge. */
+  top: 12.2283cqw;
+  left: 0;
+  z-index: 3;
+  width: 84.3071cqw;
+  height: 14.9457cqw;
+  font-family: "Decalotype", Arial, sans-serif;
+  font-size: 7.8618cqw;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 0.7673;
+  white-space: nowrap;
+}
+
+.hhf-2026-figure {
+  position: absolute;
+  top: 18.2613cqw;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: 61.8899cqw;
+  margin: 0;
+}
+
+.hhf-2026-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.8832cqw;
+}
+
+.hhf-2026-festival-title {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  font-family: "Decalotype", Arial, sans-serif;
+  font-size: 9.8273cqw;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 0.7673;
+}
+
+.hhf-2026-festival-line-one,
+.hhf-2026-festival-line-two {
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+}
+
+.hhf-2026-festival-line-one {
+  bottom: 0;
+  left: 0;
+  width: 84.3071%;
+  text-align: center;
+}
+
+.hhf-2026-festival-line-one sup {
+  position: relative;
+  /* Keep the small TH on the same bottom baseline as the 3, rather than
+     raising it like a conventional superscript. */
+  top: 0;
+  margin-left: -0.08em;
+  font-size: 0.48em;
+  vertical-align: baseline;
+}
+
+.hhf-2026-festival-line-two {
+  top: calc(100% + 1.1549cqw);
+  right: 1.1549cqw;
+  width: 84.3071%;
+  margin: 0;
+  /* The second line is intentionally subordinate to “3TH HACKNEY”. */
+  font-size: 8.4cqw;
+  text-align: right;
+}
+
+/* Reuse this class for every future activity or contact card. */
+.content-card {
+  /* Shared vertical inset for reusable feature cards. The raised title tabs
+     intentionally sit outside this content boundary. */
+  --card-content-block-start: var(--standard-card-content-block-start);
+  --card-content-block-end: var(--standard-card-content-block-end);
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+@media (min-width: 1201px) {
+  .content-card {
+    width: var(--content-card-width, 100%);
+    margin-right: 0;
+    margin-left: var(--content-card-offset, auto);
+  }
+
+  /* Desktop only: bring the contact copy and email slightly closer together. */
+  .contact-card {
+    row-gap: 1.215cqw;
+  }
+}
+
+.festival-recap {
+  position: relative;
+  z-index: 1;
+  --recap-panel-join: clamp(24px, 2vw, 32px);
+  margin-top: calc(-1 * var(--recap-panel-join));
+  /* The following section supplies the shared gap between every large card. */
+  padding: 0 var(--header-inline-start) 0;
+  background: var(--page-canvas);
+}
+
+.recap-frame {
+  --recap-content-inset: clamp(24px, 2.5cqw, 36px);
+  --recap-follow-up-overlap: clamp(84px, 21cqw, 310px);
+  container-type: inline-size;
+  width: var(--hero-content-width, 100%);
+  margin-inline: auto;
+}
+
+@media (min-width: 1201px) {
+  .recap-frame {
+    margin-right: 0;
+    margin-left: calc(var(--content-card-offset) - var(--header-inline-start));
+  }
+}
+
+.recap-panel {
+  display: flow-root;
+  position: relative;
+  /* Keep this upper panel and its rounded lower extension above the lime layer. */
+  z-index: 2;
+  color: var(--page-white);
+  background: var(--festival-forest);
+  border-radius: 0;
+}
+
+.recap-panel::after {
+  position: absolute;
+  right: 0;
+  bottom: calc(-1 * (4.0761cqw + clamp(18px, 2.2418cqw, 33px)));
+  left: 0;
+  z-index: 2;
+  height: calc(4.0761cqw + clamp(18px, 2.2418cqw, 33px));
+  content: "";
+  pointer-events: none;
+  background: var(--festival-forest);
+  border-radius: 0 0 clamp(18px, 2.2418cqw, 33px) clamp(18px, 2.2418cqw, 33px);
+}
+
+.recap-overview,
+.recap-programme-stat,
+.recap-media-stats p,
+.recap-ticket-count {
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+}
+
+.recap-overview {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.75cqw;
+  align-items: end;
+  margin: 0 var(--recap-content-inset);
+}
+
+.recap-event-count,
+.recap-overview-copy p {
+  margin: 0;
+  color: var(--page-white);
+}
+
+.recap-event-count {
+  grid-row: 1;
+  align-self: end;
+  font-size: clamp(75.6px, 9.2489cqw, 136.8px);
+  font-weight: 800;
+  line-height: 0.79;
+  letter-spacing: -0.06em;
+}
+
+.recap-overview-copy {
+  display: grid;
+  align-content: end;
+  gap: 0.1em;
+}
+
+.recap-overview-copy p {
+  font-size: clamp(27px, 3.8069cqw, 56.7px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.recap-landscape-layout {
+  display: grid;
+  grid-template-columns: 57.3288% 1fr;
+  column-gap: 1.3573%;
+  margin: calc(1.1cqw + 2px) var(--recap-content-inset) 0;
+}
+
+.recap-photo {
+  position: relative;
+  align-self: start;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.recap-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.recap-photo::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.recap-photo--landscape::after {
+  background: rgb(0 114 0 / 13%);
+}
+
+.recap-photo--portrait::after {
+  background: rgb(227 17 34 / 13%);
+}
+
+.recap-programme-stats {
+  display: grid;
+  align-self: end;
+  align-content: start;
+  justify-items: start;
+  gap: 0.3cqw;
+  padding-top: 0;
+  color: var(--page-white);
+  text-align: left;
+}
+
+.recap-programme-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.16em;
+  margin: 0;
+  font-size: clamp(28.8px, 3.5462cqw, 52.2px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.recap-stat-number {
+  display: inline-block;
+  margin-right: 0;
+  font-size: 1.39em;
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  vertical-align: baseline;
+}
+
+.recap-programme-stat .recap-stat-number {
+  line-height: 1;
+}
+
+.recap-portrait-layout {
+  display: grid;
+  grid-template-columns: 46.6046% 1fr;
+  column-gap: 1.3573%;
+  margin: 2.4cqw var(--recap-content-inset) 0;
+}
+
+.recap-portrait-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.recap-portrait-details {
+  display: grid;
+  justify-items: end;
+  gap: 1.2228cqw;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-media-stats {
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  gap: 0.3cqw;
+  padding-top: 0;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-media-stats p {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.16em;
+  margin: 0;
+  font-size: clamp(28.8px, 3.5462cqw, 52.2px);
+  font-weight: 600;
+  line-height: 1.202;
+  letter-spacing: 0;
+  word-spacing: 0.05em;
+  white-space: nowrap;
+  font-variation-settings: "wdth" 80;
+}
+
+.recap-media-stats .recap-stat-number {
+  line-height: 1;
+}
+
+.recap-ticket-stat {
+  display: grid;
+  justify-items: end;
+  margin: 0;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-ticket-count,
+.recap-ticket-label {
+  margin: 0;
+}
+
+.recap-ticket-count {
+  /* Match the 5 / 3 figures above: 1.39 × the shared stat-label size. */
+  font-size: clamp(39.6px, 4.9292cqw, 72.9px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.recap-ticket-label {
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+  /* Match the FILM SCREENINGS / MUSICAL EVENTS text above. */
+  font-size: clamp(28.8px, 3.5462cqw, 52.2px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.recap-side-copy {
+  max-width: 100%;
+  margin: 0;
+  color: var(--page-white);
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+  font-size: clamp(19.8px, 2.295cqw, 34.2px);
+  font-weight: 400;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.recap-copy {
+  --recap-copy-radius: clamp(18px, 2.2418cqw, 33px);
+  --recap-copy-top-offset: 0px;
+  display: grid;
+  position: relative;
+  z-index: 1;
+  justify-items: center;
+  /* Clear the rounded lower extension of the recap panel before this card's copy begins. */
+  margin: clamp(26px, 2.5cqw, 38px) 0 0;
+  /* Half the previous clear space before the introductory copy. */
+  padding: calc(4.8573cqw + var(--recap-copy-top-offset)) var(--recap-content-inset) 3.3967cqw;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  border-radius: 0 0 var(--recap-copy-radius) var(--recap-copy-radius);
+  text-align: center;
+}
+
+.recap-copy p {
+  margin: 0;
+  font-size: 2.6859cqw;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.recap-copy > p:not(.recap-signoff) {
+  width: 90%;
+}
+
+.recap-copy p + p:not(.recap-signoff) {
+  margin-top: 0.405cqw;
+}
+
+.recap-copy .recap-signoff {
+  margin-top: 0;
+  color: var(--festival-forest);
+  font-size: 4.75cqw;
+  font-weight: 900;
+  line-height: 1.197;
+  letter-spacing: -0.035em;
+}
+
+.recap-follow-up {
+  display: grid;
+  position: relative;
+  z-index: 0;
+  min-height: clamp(210px, 29cqw, 428px);
+  margin: calc(-1 * var(--recap-follow-up-overlap)) 0 0;
+  padding: calc(var(--recap-follow-up-overlap) + clamp(20px, 2.7333cqw, 40px)) var(--recap-content-inset) clamp(22.6667px, 3.2cqw, 46.6667px);
+  align-items: end;
+  justify-items: center;
+  color: var(--festival-green);
+  background: var(--festival-forest);
+  border-radius: 0 0 clamp(18px, 2.2418cqw, 33px) clamp(18px, 2.2418cqw, 33px);
+  text-align: center;
+}
+
+.recap-follow-up p {
+  margin: 0;
+  font-size: clamp(30.6px, 4.23cqw, 62.1px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+}
+
+.recap-follow-up p:hover {
+  color: var(--page-white);
+}
+
+/* About us */
+.about-us-section {
+  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  background: var(--page-canvas);
+}
+
+.about-us-card {
+  /* Use the shared card-title inset. */
+  --card-inline-start: var(--standard-card-inline-start);
+  --about-content-top: var(--card-content-block-start);
+  --about-content-height: 55.37cqw;
+  /* Give the standalone statistics row a little more breathing room below
+     the aligned text/image row. */
+  --about-stats-bottom: var(--card-content-block-end);
+  position: relative;
+  container-type: inline-size;
+  /* Remove half of the statistics row's upper and lower whitespace without
+     changing the card's horizontal span. */
+  /* The entire text/image/statistics composition keeps its proportions while
+     its outer top and bottom insets adopt the shared card values. */
+  aspect-ratio: 1472 / 1145.46;
+  border-radius: clamp(12px, 1.8vw, 33px);
+  color: var(--festival-forest);
+  background: var(--festival-green);
+}
+
+/*
+ * The About Us tab is intentionally built from three identical text shapes:
+ * lime outline at the back, a solid lime glyph in the middle, then the white
+ * foreground title. Keeping the fill and stroke in separate layers prevents
+ * transparent pixels from exposing the white page behind the title.
+ */
+.about-us-type-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  color: var(--festival-green);
+  -webkit-text-fill-color: var(--festival-green);
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.about-us-card .card-tab-foreground {
+  z-index: 2;
+}
+
+.about-us-copy {
+  position: absolute;
+  top: var(--about-content-top);
+  bottom: calc(100% - var(--about-content-top) - var(--about-content-height));
+  left: 4.14cqw;
+  width: 50.88cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-us-copy h3,
+.about-us-description p {
+  margin: 0;
+}
+
+.about-us-copy h3 {
+  color: var(--festival-forest);
+  font-size: var(--standard-card-heading-size);
+  font-weight: 900;
+  line-height: var(--standard-card-heading-line-height);
+  letter-spacing: var(--standard-card-heading-letter-spacing);
+  text-transform: uppercase;
+}
+
+.about-us-description {
+  margin-top: 0;
+  font-size: var(--standard-card-body-size);
+  font-weight: 600;
+  line-height: var(--standard-card-body-line-height);
+  letter-spacing: var(--standard-card-body-letter-spacing);
+}
+
+.about-us-description p + p {
+  margin-top: 2.691cqw;
+}
+
+.about-us-link,
+.festival-on-screen-subscribe,
+.newsletter-signup {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15em;
+  width: auto;
+  height: auto;
+  padding: var(--standard-card-button-block-padding) var(--standard-card-button-inline-padding);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: var(--standard-card-button-size);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.about-us-link {
+  margin-top: auto;
+  color: var(--festival-green);
+  background: var(--festival-forest);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.about-us-link:hover {
+  color: var(--festival-forest);
+  background: var(--page-white);
+}
+
+.about-us-link:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+.about-us-image {
+  position: absolute;
+  top: var(--about-content-top);
+  right: 3.6cqw;
+  width: 41.03cqw;
+  /* Preserve the established left/right image span while reducing its vertical
+     footprint with the card. Cropping, rather than narrowing the image, keeps
+     the horizontal grid and its gutter unchanged. */
+  height: var(--about-content-height);
+  border-radius: 1.576cqw;
+  object-fit: cover;
+}
+
+.about-us-stats {
+  position: absolute;
+  right: 2.7cqw;
+  bottom: var(--about-stats-bottom);
+  left: 2.7cqw;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  margin: 0;
+}
+
+.about-us-stat {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0 1cqw;
+  text-align: center;
+}
+
+.about-us-stat + .about-us-stat {
+  border-left: 0.28cqw solid var(--festival-forest);
+}
+
+.about-us-stat dt,
+.about-us-stat dd {
+  margin: 0;
+}
+
+.about-us-stat dt {
+  color: var(--page-white);
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+  /* Match the About card's main heading scale. */
+  font-size: 5.2757cqw;
+  font-weight: 600;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
+}
+
+.about-us-stat dd {
+  margin-top: 0.774cqw;
+  color: var(--festival-forest);
+  /* Match the About card's body-copy scale. */
+  font-size: 2.2226cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+/* Festival on Screen */
+.festival-on-screen-section {
+  /* Match the Festival on Screen → Newsletter gap exactly. */
+  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  background: var(--page-canvas);
+}
+
+.festival-on-screen-card {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1843 / 819;
+  border-radius: clamp(12px, 1.8vw, 33px);
+  color: var(--page-white);
+  background: var(--festival-forest);
+}
+
+.festival-on-screen-tab {
+  position: absolute;
+  right: var(--standard-card-inline-end);
+  bottom: calc(100% - var(--standard-card-tab-overlap));
+  z-index: 1;
+  margin: 0;
+  color: var(--page-white);
+  font-size: var(--standard-card-tab-size);
+  font-weight: 900;
+  line-height: var(--standard-card-tab-line-height);
+  letter-spacing: var(--standard-card-tab-letter-spacing);
+  white-space: nowrap;
+}
+
+.festival-on-screen-type-layer {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.festival-on-screen-type-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: var(--standard-card-tab-stroke) var(--festival-forest);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.festival-on-screen-type-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+}
+
+.festival-on-screen-copy {
+  position: absolute;
+  top: var(--card-content-block-start);
+  left: var(--standard-card-inline-start);
+  /* Keep a clear gutter before the image column at every card width. */
+  width: 46cqw;
+  /* Match the fixed image's height to create one aligned upper content row. */
+  min-height: 25.052cqw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.festival-on-screen-copy h3,
+.festival-on-screen-copy p {
+  margin: 0;
+}
+
+.festival-on-screen-copy h3 {
+  color: var(--festival-green);
+  font-size: var(--standard-card-heading-size);
+  font-weight: 900;
+  line-height: var(--standard-card-heading-line-height);
+  letter-spacing: var(--standard-card-heading-letter-spacing);
+}
+
+.festival-on-screen-copy p {
+  margin-top: 1.8cqw;
+  color: var(--page-white);
+  font-size: var(--standard-card-body-size);
+  font-weight: 600;
+  line-height: var(--standard-card-body-line-height);
+  letter-spacing: var(--standard-card-body-letter-spacing);
+}
+
+.festival-on-screen-subscribe {
+  position: absolute;
+  bottom: var(--card-content-block-end);
+  /* Align with the left edge of the title and body copy. */
+  left: var(--standard-card-inline-start);
+  margin: 0;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  text-decoration: none;
+}
+
+.festival-on-screen-subscribe:hover {
+  color: var(--festival-green);
+  background: var(--page-white);
+}
+
+.festival-on-screen-subscribe:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+.festival-on-screen-image {
+  position: absolute;
+  top: var(--card-content-block-start);
+  right: var(--standard-card-inline-end);
+  width: 44.5475cqw;
+  aspect-ratio: 821.01 / 461.72;
+  height: auto;
+  border-radius: 1.576cqw;
+  object-fit: cover;
+}
+
+.festival-on-screen-video-count {
+  position: absolute;
+  right: var(--standard-card-inline-end);
+  bottom: var(--card-content-block-end);
+  display: grid;
+  align-content: center;
+  min-height: 6.153cqw;
+  margin: 0;
+  color: var(--festival-green);
+  font-size: var(--standard-card-body-size);
+  font-weight: 600;
+  line-height: var(--standard-card-body-line-height);
+  letter-spacing: var(--standard-card-body-letter-spacing);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Newsletter */
+.newsletter-section {
+  padding: clamp(68.4px, 5.4vw, 104.4px) 0 clamp(43.2px, 4.5vw, 86.4px);
+  background: var(--page-canvas);
+}
+
+.newsletter-card {
+  /* Share the same inner grid as the Festival on Screen card above. */
+  --card-inline-start: var(--standard-card-inline-start);
+  --card-inline-end: var(--standard-card-inline-end);
+  position: relative;
+  container-type: inline-size;
+  border-radius: clamp(12px, 1.8vw, 33px);
+  color: var(--festival-forest);
+  background: var(--festival-green);
+}
+
+/* Shared raised title treatment for the lime cards. */
+.card-tab {
+  position: absolute;
+  left: var(--card-inline-start);
+  bottom: calc(100% - var(--standard-card-tab-overlap));
+  margin: 0;
+  color: var(--page-white);
+  font-size: var(--standard-card-tab-size);
+  font-weight: 900;
+  line-height: var(--standard-card-tab-line-height);
+  letter-spacing: var(--standard-card-tab-letter-spacing);
+  white-space: nowrap;
+}
+
+.card-tab-layer {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.card-tab-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: var(--standard-card-tab-stroke) var(--festival-green);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.card-tab-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+}
+
+.newsletter-content {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  padding: var(--card-content-block-start) var(--card-inline-end)
+    var(--card-content-block-end) var(--card-inline-start);
+}
+
+.newsletter-content h3,
+.newsletter-content p {
+  margin: 0;
+}
+
+.newsletter-content h3 {
+  color: var(--festival-forest);
+  font-size: var(--standard-card-heading-size);
+  font-weight: 900;
+  line-height: var(--standard-card-heading-line-height);
+  letter-spacing: var(--standard-card-heading-letter-spacing);
+}
+
+.newsletter-content p {
+  max-width: 100%;
+  margin-top: var(--standard-card-heading-body-gap);
+  color: var(--festival-forest);
+  font-size: var(--standard-card-body-size);
+  font-weight: 600;
+  line-height: var(--standard-card-body-line-height);
+  letter-spacing: var(--standard-card-body-letter-spacing);
+}
+
+.newsletter-signup {
+  margin-top: 3.15cqw;
+  border: 0;
+  color: var(--festival-green);
+  background: var(--festival-forest);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.newsletter-signup > span {
+  display: block;
+  line-height: 1;
+}
+
+.newsletter-signup:hover {
+  color: var(--festival-forest);
+  background: var(--page-white);
+}
+
+.newsletter-signup:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+/* Footer */
+.site-footer {
+  --footer-brand-height: clamp(52px, 3.3854vw, 65px);
+  color: var(--page-white);
+  background: var(--festival-forest);
+  border-radius: clamp(16px, 1.5625vw, 30px) clamp(16px, 1.5625vw, 30px) 0 0;
+}
+
+.site-footer-content {
+  display: grid;
+  grid-template-columns: 44.75% minmax(0, 1fr);
+  min-height: clamp(387px, 25.0781vw, 481.5px);
+  padding: clamp(34.2px, 3.0469vw, 58.5px) clamp(24px, 2.2917vw, 44px) clamp(27px, 2.1094vw, 40.5px);
+}
+
+.footer-left-column {
+  min-width: 0;
+}
+
+.footer-festival-logo {
+  width: auto;
+  height: var(--footer-brand-height);
+}
+
+.footer-useful-links {
+  margin-top: clamp(28.8px, 1.875vw, 36px);
+}
+
+.footer-useful-links h2,
+.footer-useful-links ul,
+.footer-useful-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-useful-links h2 {
+  color: var(--page-white);
+  font-size: clamp(18px, 1.5469vw, 29.7px);
+  font-weight: 600;
+  line-height: 1.2122;
+}
+
+.footer-useful-links ul {
+  list-style: none;
+  margin-top: clamp(8px, 0.625vw, 12px);
+}
+
+.footer-useful-links li {
+  color: var(--page-white);
+  font-size: clamp(15.3px, 1.3125vw, 25.2px);
+  font-weight: 500;
+  line-height: 1.2143;
+}
+
+.footer-useful-links a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-useful-links a:hover {
+  color: var(--festival-green);
+}
+
+.footer-useful-links a:focus-visible {
+  outline: 3px solid var(--festival-green);
+  outline-offset: 3px;
+}
+
+.footer-useful-links li.footer-useful-links__nested {
+  padding-left: clamp(16px, 1.25vw, 24px);
+}
+
+.footer-main-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: calc(var(--footer-brand-height) + clamp(28.8px, 1.875vw, 36px));
+}
+
+.footer-see-you-message {
+  margin: 0;
+  color: var(--festival-green);
+  font-family: inherit;
+  font-size: clamp(28.8px, 2.9063vw, 55.8px);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.footer-description {
+  width: min(100%, 896px);
+  margin: clamp(14.4px, 1.125vw, 21.6px) 0 0;
+  color: var(--page-white);
+  font-size: clamp(16.2px, 1.3594vw, 26.1px);
+  font-weight: 500;
+  line-height: 1.2069;
+}
+
+.footer-partners {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  min-height: var(--footer-brand-height);
+  margin: 0;
+}
+
+.footer-society-logo {
+  width: auto;
+  height: var(--footer-brand-height);
+  max-width: none;
+}
+
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.4167vw, 8px);
+  margin: 0 0 0 clamp(24px, 2.5vw, 48px);
+  padding: 0;
+  list-style: none;
+}
+
+.footer-social-links img {
+  width: clamp(32px, 2.9167vw, 56px);
+  height: auto;
+  max-width: none;
+}
+
+.footer-social-links li:last-child img {
+  width: clamp(36px, 3.125vw, 60px);
+}
+
+.footer-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  color: var(--page-white);
+  font-size: clamp(14.4px, 1.0312vw, 19.8px);
+  font-weight: 400;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .site-footer-content {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    min-height: auto;
+    padding: clamp(30.6px, 6.3vw, 50.4px) clamp(20px, 5vw, 40px) clamp(25.2px, 5.4vw, 43.2px);
+  }
+
+  .footer-description {
+    width: 100%;
+  }
+
+  .footer-partners {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .footer-social-links {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer-content {
+    grid-template-columns: 1fr;
+    gap: clamp(30.6px, 8.1vw, 37.8px);
+  }
+
+  .footer-main-column {
+    padding-top: 0;
+  }
+
+  .footer-description {
+    margin-left: 0;
+  }
+
+  .footer-see-you-message {
+    margin: 0;
+  }
+
+  .footer-partners {
+    position: static;
+    order: 2;
+    margin: clamp(14.4px, 1.125vw, 21.6px) 0 0;
+  }
+
+  .footer-meta {
+    order: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75ch;
+    margin-top: clamp(18px, 5vw, 28px);
+    font-size: clamp(6px, 2vw, 12px);
+    letter-spacing: -0.025em;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .footer-meta span {
+    flex: 0 0 auto;
+  }
+
+  .footer-useful-links li.footer-useful-links__nested {
+    padding-left: 20px;
+  }
+
+  .footer-useful-links ul {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(16px, 6vw, 28px);
+  }
+
+  .footer-useful-links__programme,
+  .footer-useful-links__nested {
+    grid-column: 1;
+  }
+
+  .footer-useful-links__secondary {
+    grid-column: 2;
+  }
+
+  /* Keep the two link groups aligned row-for-row on compact screens. */
+  .footer-useful-links li:nth-child(1),
+  .footer-useful-links li:nth-child(2) {
+    grid-row: 1;
+  }
+
+  .footer-useful-links li:nth-child(3),
+  .footer-useful-links li:nth-child(6) {
+    grid-row: 2;
+  }
+
+  .footer-useful-links li:nth-child(4),
+  .footer-useful-links li:nth-child(7) {
+    grid-row: 3;
+  }
+
+  .footer-useful-links li:nth-child(5),
+  .footer-useful-links li:nth-child(8) {
+    grid-row: 4;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  min-height: 100dvh;
+  padding: clamp(1.5rem, 3vw, 4rem);
+  overflow-y: auto;
+  color: var(--festival-green);
+  background: var(--festival-forest);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+/* Separate the opened menu from the page beneath it without dimming the menu itself. */
+.menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 105;
+  pointer-events: none;
+  background: rgb(0 27 15 / 0.54);
+  opacity: 0;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: opacity 220ms ease;
+}
+
+body.menu-open .menu-backdrop {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* The backdrop fades away alongside the menu's closing movement. */
+body.menu-open:has(.menu-panel.is-closing) .menu-backdrop {
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Menu panel */
+.menu-panel {
+  --menu-left-inset: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-left: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-right: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-bottom: clamp(16px, 1.7229dvh, 23px);
+  position: fixed;
+  z-index: 120;
+  top: 0;
+  right: max(0px, calc((100vw - 1920px) / 2));
+  bottom: 0;
+  left: auto;
+  width: min(56.40625vw, 1083px);
+  min-height: 100dvh;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--page-white);
+  background: var(--festival-forest);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transform-origin: top center;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+  will-change: transform;
+}
+
+.menu-panel.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu-navigation {
+  position: relative;
+  min-height: 100dvh;
+  padding: clamp(80px, 12.3596dvh, 165px) var(--menu-left-inset) 220px;
+}
+
+.menu-primary-links,
+.menu-primary-items,
+.menu-secondary-links {
+  display: grid;
+  justify-items: start;
+}
+
+.menu-primary-items,
+.menu-secondary-links {
+  gap: clamp(4px, 0.3646vw, 7px);
+}
+
+.menu-programme-links {
+  display: grid;
+  justify-items: start;
+  gap: clamp(2px, 0.2083vw, 4px);
+  margin: clamp(2px, 0.2604vw, 5px) 0 clamp(7px, 0.5208vw, 10px);
+  padding-left: clamp(18px, 1.5625vw, 30px);
+}
+
+.menu-primary-links :is(button, a),
+.menu-secondary-links :is(button, a) {
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menu-section-title {
+  margin: 0 0 clamp(12px, 0.9375vw, 18px);
+  color: var(--page-white);
+  font-size: clamp(37.8px, 3.375vw, 64.8px);
+  line-height: 1.12;
+}
+
+.menu-primary-items :is(button, a),
+.menu-secondary-links :is(button, a) {
+  color: var(--page-white);
+  font-size: clamp(27px, 2.7187vw, 52.2px);
+  line-height: 1.14;
+}
+
+.menu-programme-links :is(button, a) {
+  color: var(--page-white);
+  font-size: clamp(18px, 1.6667vw, 32px);
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.menu-programme-links :is(button, a):hover {
+  color: var(--festival-green);
+}
+
+.menu-primary-links :is(button, a):hover {
+  color: var(--festival-green);
+}
+
+.menu-secondary-links {
+  margin-top: clamp(3rem, 4.5dvh, 4rem);
+}
+
+.menu-secondary-links :is(button, a) {
+  color: var(--festival-green);
+}
+
+.menu-secondary-links :is(button, a):hover {
+  color: var(--page-white);
+}
+
+.menu-footer {
+  position: absolute;
+  right: var(--menu-footer-right);
+  bottom: var(--menu-footer-bottom);
+  left: var(--menu-footer-left);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hackney-society-logo {
+  width: clamp(190px, 14.5833vw, 280px);
+  height: auto;
+  max-width: none;
+}
+
+.menu-social-links {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(6px, 0.5208vw, 10px);
+}
+
+.social-button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.social-button img {
+  height: auto;
+  max-width: none;
+}
+
+.social-facebook {
+  width: clamp(32px, 2.6042vw, 50px);
+}
+
+.social-x,
+.social-instagram {
+  width: clamp(33px, 2.7083vw, 52px);
+}
+
+.social-youtube {
+  width: clamp(37px, 3.0208vw, 58px);
+}
+
+/* Responsive refinements
+   Repeated selectors below are intentional breakpoint-specific overrides. */
+
+@media (max-width: 900px) {
+  :root {
+    --header-height: clamp(68px, 8.4444vw, 76px);
+    --header-inline-start: clamp(16px, 3.3333vw, 30px);
+  }
+
+  .site-header {
+    padding: 0 clamp(16px, 3.3333vw, 30px);
+  }
+
+  .brand {
+    width: clamp(132px, 18.5vw, 166px);
+  }
+
+  .join-button {
+    width: clamp(128px, 20vw, 180px);
+    height: clamp(37.8px, 5vw, 45px);
+    margin-right: clamp(12px, 2.2222vw, 20px);
+    font-size: clamp(17.1px, 2.4vw, 21.6px);
+  }
+
+  .search-button {
+    width: clamp(34px, 5.5556vw, 50px);
+    margin-right: clamp(10px, 1.3333vw, 12px);
+  }
+
+  .menu-button {
+    width: clamp(36px, 5.5556vw, 50px);
+  }
+
+  .menu-panel {
+    --menu-left-inset: var(--header-inline-start);
+    --menu-footer-left: clamp(12px, 3.3333vw, 30px);
+    --menu-footer-right: clamp(12px, 3.3333vw, 30px);
+    bottom: auto;
+    right: 0;
+    left: 0;
+    width: 100%;
+    min-height: 0;
+    height: 66.6667dvh;
+  }
+
+  .menu-navigation {
+    min-height: 100%;
+    padding: clamp(124px, 18vw, 162px) var(--menu-left-inset) 0;
+  }
+
+  .menu-primary-links,
+  .menu-primary-items,
+  .menu-secondary-links,
+  .menu-programme-links {
+    width: 100%;
+    justify-items: start;
+  }
+
+  .menu-primary-links :is(button, a),
+  .menu-secondary-links :is(button, a) {
+    text-align: left;
+  }
+
+  .menu-section-title {
+    font-size: clamp(43.2px, 7.2vw, 64.8px);
+  }
+
+  .menu-primary-items :is(button, a),
+  .menu-secondary-links :is(button, a) {
+    font-size: clamp(32.4px, 5.6vw, 50.4px);
+  }
+
+  .menu-programme-links {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .menu-programme-links :is(button, a) {
+    font-size: clamp(20px, 4vw, 36px);
+  }
+
+  .menu-secondary-links {
+    position: static;
+    margin-top: clamp(1.5rem, 3.5dvh, 2.25rem);
+  }
+
+  .hackney-society-logo {
+    width: clamp(94px, 28vw, 160px);
+  }
+
+  .menu-social-links {
+    gap: clamp(4px, 1.1111vw, 10px);
+  }
+
+  .social-facebook {
+    width: clamp(18px, 5.5556vw, 36px);
+  }
+
+  .social-x,
+  .social-instagram {
+    width: clamp(19px, 5.7vw, 38px);
+  }
+
+  .social-youtube {
+    width: clamp(21px, 6.3vw, 40px);
+  }
+
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 68px;
+    --header-inline-start: 12px;
+  }
+
+  .site-header {
+    padding: 0 12px;
+  }
+
+  .brand {
+    width: min(33vw, 116px);
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .join-button {
+    width: 104px;
+    height: 35.1px;
+    margin: 0;
+    font-size: 14.4px;
+  }
+
+  .search-button,
+  .menu-button {
+    width: 30px;
+    margin: 0;
+  }
+
+  .menu-navigation {
+    padding-top: 104px;
+  }
+
+  .menu-section-title {
+    font-size: 37.8px;
+  }
+
+  .menu-primary-items :is(button, a),
+  .menu-secondary-links :is(button, a) {
+    font-size: 28.8px;
+  }
+
+}
+
+@media (max-width: 700px) {
+  :root {
+    --header-height: 68px;
+    --card-corner-radius: 10px;
+  }
+
+  .festival-recap {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .recap-overview {
+    margin-right: var(--header-inline-start);
+    margin-left: var(--header-inline-start);
+  }
+
+  .festival-dates-heading {
+    min-height: 0;
+    /* Preserve the existing Hero → dates spacing around the larger special
+       event label. */
+    padding: calc(clamp(25.2px, 7.2vw, 43.2px) + 2.00544vw) 0 0;
+    white-space: nowrap;
+    transform: none;
+  }
+
+  .festival-dates-panel {
+    min-height: 0;
+    padding: clamp(25.2px, 7.2vw, 43.2px) 0 clamp(18px, 4.8vw, 28.8px);
+  }
+
+  .festival-dates-content {
+    row-gap: clamp(13.2px, 4vw, 24px);
+  }
+
+  .festival-date-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .festival-date-row h3,
+  .festival-date-row time {
+    font-size: 3.5076cqw;
+    line-height: 1;
+  }
+
+  .festival-date-row h3 {
+    font-size: 5.2614cqw;
+  }
+
+  .festival-date-row time {
+    color: var(--page-white);
+  }
+
+  .festival-satellite-events {
+    gap: 8px;
+    font-size: clamp(11.7px, 3.78vw, 22.5px);
+    white-space: nowrap;
+  }
+
+  .contact-section {
+    --recap-intro-bottom-space: clamp(28.8px, 7.2vw, 46.8px);
+  }
+
+  .recap-copy {
+    /* Keep the introduction clear of the rounded recap panel above. */
+    --recap-copy-top-offset: clamp(6px, 1.75cqw, 9px);
+  }
+
+  .hhf-2026-surface {
+    margin-top: clamp(24px, 6vw, 36px);
+  }
+
+  .contact-card {
+    width: 100%;
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 12.6px;
+    row-gap: 7.2px;
+  }
+
+  .hhf-2026-image {
+    width: 100%;
+  }
+
+  .contact-card-message {
+    font-size: 27px;
+    line-height: 1;
+  }
+
+  .contact-card-email {
+    font-size: clamp(16.2px, 6cqw, 23.4px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+}
+
+/* Keep the 2026 recap as the desktop composition at every size.  The
+   component scales with its own width instead of switching to a single column. */
+@media (max-width: 900px) {
+  .festival-recap {
+    --recap-panel-join: 2.5cqw;
+    padding-bottom: 0;
+  }
+
+  .recap-frame {
+    --recap-content-inset: max(16px, 2.5cqw);
+    width: 100%;
+  }
+
+  .recap-overview {
+    grid-template-columns: max-content 1fr;
+    column-gap: 0.75cqw;
+    align-items: end;
+    margin: 0 var(--recap-content-inset);
+  }
+
+  .recap-event-count {
+    grid-row: 1;
+    font-size: 9.2489cqw;
+  }
+
+  .recap-overview-copy p {
+    font-size: 3.8069cqw;
+    line-height: 0.98;
+  }
+
+  .recap-landscape-layout {
+    grid-template-columns: 57.3288% 1fr;
+    margin-top: calc(1.1cqw + 2px);
+  }
+
+  .recap-programme-stats {
+    align-self: end;
+    align-content: start;
+    justify-items: start;
+    gap: 0.3cqw;
+    padding: 0;
+  }
+
+  .recap-programme-stat {
+    font-size: 3.5462cqw;
+    line-height: 1.06;
+  }
+
+  .recap-portrait-layout {
+    grid-template-columns: 46.6046% 1fr;
+    margin-top: 2.4cqw;
+  }
+
+  .recap-portrait-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .recap-portrait-details {
+    grid-row: auto;
+    justify-items: end;
+    gap: 1.2228cqw;
+    margin: 0;
+    text-align: right;
+  }
+
+  .recap-media-stats {
+    align-content: start;
+    justify-items: end;
+    gap: 0.3cqw;
+    padding: 0;
+    text-align: right;
+  }
+
+  .recap-media-stats p {
+    font-size: 3.5462cqw;
+    line-height: 1.202;
+    white-space: nowrap;
+  }
+
+  .recap-ticket-stat {
+    justify-items: end;
+    margin: 0;
+    text-align: right;
+  }
+
+  .recap-ticket-count {
+    font-size: 4.9292cqw;
+    letter-spacing: -0.035em;
+  }
+
+  .recap-ticket-label {
+    font-size: 3.5462cqw;
+  }
+
+  .recap-ticket-count,
+  .recap-ticket-label {
+    line-height: 1.12;
+  }
+
+  .recap-side-copy {
+    font-size: 2.295cqw;
+    line-height: 1.16;
+  }
+
+  .recap-copy {
+    margin: clamp(26px, 2.5cqw, 38px) 0 0;
+  }
+
+  .recap-follow-up {
+    min-height: 29cqw;
+    padding-top: calc(var(--recap-follow-up-overlap) + 2.7333cqw);
+    padding-bottom: 3.2cqw;
+  }
+
+  .recap-follow-up p {
+    font-size: 4.23cqw;
+    line-height: 1.18;
+  }
+}
+
+@media (max-width: 560px) {
+  .recap-overview {
+    grid-template-columns: max-content 1fr;
+    row-gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,0 +1,2033 @@
+:root {
+  --festival-green: #26ff00;
+  --festival-forest: #02472a;
+  --page-white: #ffffff;
+  --header-height: 80px;
+  --header-inline-start: 28px;
+  --hero-title-edge-gap: 3px;
+  --card-corner-radius: 16.5px;
+  font-family: "Decalotype", Arial, sans-serif;
+  font-synthesis: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Keep scrolling available while removing every visible scrollbar. */
+html,
+body,
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html {
+  min-width: 320px;
+  background: #f5f5f5;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--festival-forest);
+  background: #f5f5f5;
+}
+
+body.panel-open {
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-shell {
+  width: 100%;
+  max-width: 1920px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding-top: var(--header-height);
+  overflow: clip;
+  background: var(--page-white);
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  width: min(100%, 1920px);
+  height: var(--header-height);
+  padding: 0 31px 0 var(--header-inline-start);
+  background: var(--festival-forest);
+  transform: translateX(-50%);
+}
+
+body.menu-open .site-header {
+  z-index: 110;
+}
+
+.brand {
+  display: block;
+  flex: 0 0 auto;
+  width: 167px;
+}
+
+.brand:focus-visible,
+.layout-switcher-button:focus-visible,
+.icon-button:focus-visible,
+.join-button:focus-visible,
+.menu-primary-links button:focus-visible,
+.menu-secondary-links button:focus-visible,
+.social-button:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 4px;
+}
+
+.brand img {
+  width: 100%;
+  height: auto;
+}
+
+.layout-switcher {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 64px);
+  margin-left: clamp(40px, 12vw, 260px);
+}
+
+.layout-switcher-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(132px, 13.55vw, 260px);
+  height: 44px;
+  border: 2px solid var(--festival-green);
+  color: var(--festival-green);
+  background: transparent;
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.layout-switcher-button[aria-current="page"] {
+  color: var(--festival-forest);
+  background: var(--festival-green);
+}
+
+.layout-switcher-button:hover {
+  color: var(--festival-forest);
+  background: var(--page-white);
+}
+
+.layout-switcher-number {
+  display: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.join-button,
+.icon-button {
+  flex: 0 0 auto;
+  border: 0;
+  color: var(--festival-forest);
+  background: transparent;
+}
+
+.join-button {
+  width: 234px;
+  height: 48px;
+  margin-right: 38px;
+  border-radius: 999px;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.join-button:hover {
+  color: var(--festival-green);
+  background: var(--page-white);
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.search-button {
+  width: 52px;
+  margin-right: 24px;
+}
+
+.menu-button {
+  width: 52px;
+}
+
+.search-button img,
+.menu-button img {
+  width: 100%;
+  height: auto;
+}
+
+.icon-button:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.hero {
+  --hero-inline-end: clamp(16px, 2.083333vw, 40px);
+  --hero-top-gap: 15px;
+  position: relative;
+  box-sizing: content-box;
+  container-type: inline-size;
+  display: grid;
+  width: calc(100% - var(--header-inline-start) - var(--hero-inline-end));
+  margin-inline: var(--header-inline-start) var(--hero-inline-end);
+  padding-top: var(--hero-top-gap);
+  padding-bottom: 0;
+  /* On tall screens, let the content after the artwork follow it immediately. */
+  place-items: start;
+}
+
+.hero-artwork {
+  position: relative;
+  width: var(--hero-artwork-width, 100%);
+  aspect-ratio: 2099 / 1164;
+}
+
+.hero-artwork-image,
+.hero-artwork-title {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-width: none;
+}
+
+.hero-artwork-image {
+  top: 0;
+  left: 0;
+  width: 72.7966%;
+}
+
+.hero-artwork-title {
+  top: var(--hero-title-top, 0px);
+  left: var(--hero-title-offset, 0px);
+  width: var(--hero-title-width, 58%);
+}
+
+/* Desktop: title is centred inside the image, with a 3px edge clearance. */
+@media (min-width: 1201px) {
+  .hero {
+    place-items: start center;
+    padding-bottom: calc(var(--hero-top-gap) + var(--hero-title-overflow, 0px));
+  }
+
+  .hero-artwork-image {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .hero-artwork-title {
+    left: 50%;
+    width: var(--hero-title-width, 72.7966%);
+    transform: translateX(-50%);
+  }
+
+  .festival-dates .festival-dates-heading {
+    box-sizing: border-box;
+    margin-top: 24px;
+    padding-inline: clamp(22px, 2.0833vw, 40px);
+  }
+
+  .festival-dates .festival-dates-panel {
+    box-sizing: border-box;
+    padding-inline: clamp(22px, 2.0833vw, 40px);
+  }
+
+  .festival-dates-panel .festival-date-row {
+    width: 100%;
+    margin-inline: 0;
+    align-items: end;
+  }
+
+  .festival-dates-panel .festival-date-row h3,
+  .festival-dates-panel .festival-date-row time {
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  .festival-dates-panel .festival-date-row h3 {
+    font-size: 60px;
+  }
+
+  .festival-dates-panel .festival-date-row time {
+    justify-self: end;
+    text-align: end;
+  }
+
+  .festival-dates-panel .festival-satellite-events {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 1200px) {
+  .festival-dates-panel .festival-date-row {
+    align-items: end;
+  }
+
+  .festival-dates-panel .festival-date-row h3 {
+    font-size: 45px;
+  }
+
+  .festival-dates-panel .festival-date-row time {
+    font-size: 22.5px;
+  }
+}
+
+/* Tablet and phone: the title is centred with a 3px inset from the image
+   edges, while its first line stays on the image bottom. */
+@media (max-width: 1200px) {
+  .hero {
+    width: calc(100% - var(--header-inline-start) - var(--header-inline-start));
+    margin-inline: var(--header-inline-start);
+  }
+
+  .hero-artwork {
+    width: 100%;
+    /* 1207/1766 image height + the title's lower half + 15px clearance. */
+    height: calc(76.5550cqw + var(--hero-top-gap));
+    aspect-ratio: auto;
+  }
+
+  .hero-artwork-image {
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .hero-artwork-title {
+    /* Align the visible first-line baseline with the image bottom. */
+    top: calc(59.9972cqw + 0.501px);
+    left: 50%;
+    width: calc(100% - (var(--hero-title-edge-gap) * 2));
+    transform: translateX(-50%);
+  }
+}
+
+.festival-dates {
+  background: var(--page-white);
+}
+
+.festival-dates-heading {
+  display: flex;
+  align-items: end;
+  position: relative;
+  z-index: 2;
+  min-height: clamp(72px, 5.9375vw, 114px);
+  margin: 0;
+  padding: 0 clamp(20px, 1.6667vw, 32px);
+  overflow: visible;
+  /* Optically align the ink edge with the panel boundary below. */
+  color: var(--page-white);
+  font-size: clamp(56px, 5.2851vw, 101.473px);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.015em;
+  transform: translateY(0.04em);
+}
+
+.festival-dates-panel {
+  display: grid;
+  align-content: start;
+  min-height: clamp(306px, 25.2187vw, 484px);
+  padding: clamp(33px, 2.7656vw, 53px) clamp(22px, 2.0833vw, 40px) clamp(11px, 0.8333vw, 16px);
+  row-gap: clamp(18px, 1.4583vw, 28px);
+  color: var(--page-white);
+  position: relative;
+  z-index: 1;
+  border-radius: var(--card-corner-radius);
+  background: var(--festival-forest);
+}
+
+.festival-date-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9573fr) minmax(0, 1fr);
+  align-items: baseline;
+}
+
+.festival-date-row h3,
+.festival-date-row time {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(38px, 3.6094vw, 69px);
+  font-weight: 700;
+  line-height: 1.1948;
+  letter-spacing: -0.015em;
+}
+
+.festival-date-row time {
+  justify-self: start;
+}
+
+/* These are two real text layers: green outline below, white type above. */
+.festival-type-layer {
+  position: relative;
+  z-index: 999;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.festival-type-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.42em var(--festival-forest);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.festival-type-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+  -webkit-text-fill-color: var(--page-white);
+  pointer-events: none;
+}
+
+.festival-satellite-events {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.3em;
+  margin: 0;
+  color: var(--festival-green);
+  font-size: clamp(18px, 1.8047vw, 34.5px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.contact-section {
+  --recap-intro-bottom-space: clamp(28px, 3.125vw, 60px);
+  display: flow-root;
+  padding-bottom: 0;
+  background: var(--page-white);
+}
+
+.contact-card {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  align-content: center;
+  justify-items: center;
+  width: 100%;
+  aspect-ratio: 1472 / 274;
+  /* Sit behind the rounded lower edge of the dates card. */
+  margin: calc(-1 * var(--card-corner-radius)) auto 0;
+  padding: 1.4946cqw 2.7174cqw;
+  row-gap: 2.1739cqw;
+  overflow: hidden;
+  border-radius: 0 0 var(--card-corner-radius) var(--card-corner-radius);
+  text-align: center;
+  background: var(--festival-green);
+}
+
+.contact-card-message,
+.contact-card-email {
+  margin: 0;
+  font-size: clamp(28px, 5.6307cqw, 82.884px);
+  font-weight: 700;
+  line-height: 1.1944;
+  letter-spacing: -0.02em;
+}
+
+.contact-card-message {
+  color: var(--festival-forest);
+  /* Nudge the first line down without moving the email or resizing the card. */
+  transform: translateY(clamp(4px, 0.5cqw, 8px));
+}
+
+.contact-card-email {
+  font-size: clamp(26px, 5.15cqw, 76px);
+  color: var(--page-white);
+  text-decoration: none;
+}
+
+.contact-card-email:hover {
+  color: var(--festival-forest);
+}
+
+.contact-card-email:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+.hhf-2026-image {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.hhf-2026-surface {
+  position: relative;
+  margin-top: clamp(32px, 3.33335vw, 64px);
+  padding-bottom: var(--recap-intro-bottom-space);
+  background: transparent;
+}
+
+/* The forest sits behind both the PNG and the recap content. */
+.hhf-2026-surface::before {
+  position: absolute;
+  z-index: 0;
+  inset: 70% 0 0;
+  content: "";
+  background: var(--festival-forest);
+  pointer-events: none;
+}
+
+/* Reuse this class for every future activity or contact card. */
+.content-card {
+  box-sizing: border-box;
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+@media (min-width: 1201px) {
+  .content-card {
+    width: var(--content-card-width, 100%);
+    margin-right: 0;
+    margin-left: var(--content-card-offset, auto);
+  }
+
+  /* Desktop only: bring the contact copy and email slightly closer together. */
+  .contact-card {
+    row-gap: 1.35cqw;
+  }
+}
+
+.festival-recap {
+  position: relative;
+  z-index: 1;
+  --recap-panel-join: clamp(24px, 2vw, 32px);
+  margin-top: calc(-1 * var(--recap-panel-join));
+  /* The following section supplies the shared gap between every large card. */
+  padding: 0 var(--header-inline-start) 0;
+  background: var(--page-white);
+}
+
+.recap-frame {
+  --recap-content-inset: clamp(24px, 2.5cqw, 36px);
+  container-type: inline-size;
+  width: var(--hero-content-width, 100%);
+  margin-inline: auto;
+}
+
+@media (min-width: 1201px) {
+  .recap-frame {
+    margin-right: 0;
+    margin-left: calc(var(--content-card-offset) - var(--header-inline-start));
+  }
+}
+
+.recap-panel {
+  display: flow-root;
+  position: relative;
+  z-index: 1;
+  color: var(--page-white);
+  background: var(--festival-forest);
+  border-radius: 0;
+}
+
+.recap-panel::after {
+  position: absolute;
+  right: 0;
+  bottom: calc(-1 * (4.0761cqw + clamp(18px, 2.2418cqw, 33px)));
+  left: 0;
+  z-index: 2;
+  height: calc(4.0761cqw + clamp(18px, 2.2418cqw, 33px));
+  content: "";
+  pointer-events: none;
+  background: var(--festival-forest);
+  border-radius: 0 0 clamp(18px, 2.2418cqw, 33px) clamp(18px, 2.2418cqw, 33px);
+}
+
+.recap-overview,
+.recap-programme-stat,
+.recap-media-stats p,
+.recap-ticket-count {
+  font-family: "Bricolage Grotesque", "Decalotype", Arial, sans-serif;
+}
+
+.recap-overview {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 0.75cqw;
+  align-items: end;
+  margin: 0 var(--recap-content-inset);
+}
+
+.recap-event-count,
+.recap-overview-copy p {
+  margin: 0;
+  color: var(--page-white);
+}
+
+.recap-event-count {
+  grid-row: 1;
+  align-self: end;
+  font-size: clamp(84px, 10.2765cqw, 152px);
+  font-weight: 800;
+  line-height: 0.79;
+  letter-spacing: -0.06em;
+}
+
+.recap-overview-copy {
+  display: grid;
+  align-content: end;
+  gap: 0.1em;
+}
+
+.recap-overview-copy p {
+  font-size: clamp(30px, 4.2299cqw, 63px);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.recap-landscape-layout {
+  display: grid;
+  grid-template-columns: 57.3288% 1fr;
+  column-gap: 1.3573%;
+  margin: calc(1.1cqw + 2px) var(--recap-content-inset) 0;
+}
+
+.recap-photo {
+  position: relative;
+  align-self: start;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.recap-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.recap-photo::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.recap-photo--landscape::after {
+  background: rgb(0 114 0 / 13%);
+}
+
+.recap-photo--portrait::after {
+  background: rgb(227 17 34 / 13%);
+}
+
+.recap-programme-stats {
+  display: grid;
+  align-self: end;
+  align-content: start;
+  justify-items: start;
+  gap: 0.3cqw;
+  padding-top: 0;
+  color: var(--page-white);
+  text-align: left;
+}
+
+.recap-programme-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.16em;
+  margin: 0;
+  font-size: clamp(32px, 3.9402cqw, 58px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.recap-stat-number {
+  display: inline-block;
+  margin-right: 0;
+  font-size: 1.39em;
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  vertical-align: baseline;
+}
+
+.recap-programme-stat .recap-stat-number {
+  line-height: 1;
+}
+
+.recap-portrait-layout {
+  display: grid;
+  grid-template-columns: 46.6046% 1fr;
+  column-gap: 1.3573%;
+  margin: 2.4cqw var(--recap-content-inset) 0;
+}
+
+.recap-portrait-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.recap-portrait-details {
+  display: grid;
+  justify-items: end;
+  gap: 1.2228cqw;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-media-stats {
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  gap: 0.3cqw;
+  padding-top: 0;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-media-stats p {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.16em;
+  margin: 0;
+  font-size: clamp(32px, 3.9402cqw, 58px);
+  font-weight: 600;
+  line-height: 1.202;
+  letter-spacing: 0;
+  word-spacing: 0.05em;
+  white-space: nowrap;
+  font-variation-settings: "wdth" 80;
+}
+
+.recap-media-stats .recap-stat-number {
+  line-height: 1;
+}
+
+.recap-ticket-stat {
+  display: grid;
+  justify-items: end;
+  margin: 0;
+  color: var(--page-white);
+  text-align: right;
+}
+
+.recap-ticket-count,
+.recap-ticket-label {
+  margin: 0;
+}
+
+.recap-ticket-count {
+  font-size: clamp(58px, 6.1141cqw, 90px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+}
+
+.recap-ticket-label {
+  font-size: clamp(54px, 5.7065cqw, 84px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.recap-side-copy {
+  max-width: 100%;
+  margin: 0;
+  color: var(--page-white);
+  font-size: clamp(28px, 3.3967cqw, 50px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.recap-copy {
+  --recap-copy-gap: 4.0761cqw;
+  --recap-copy-radius: clamp(18px, 2.2418cqw, 33px);
+  --recap-copy-top-offset: 0px;
+  display: grid;
+  position: relative;
+  z-index: 0;
+  justify-items: center;
+  /* The lime card sits behind the rounded base of the recap panel. */
+  margin: calc(-1 * var(--recap-copy-radius)) 0 0;
+  padding: calc(3.3967cqw + var(--recap-copy-gap) + var(--recap-copy-radius) + var(--recap-copy-top-offset)) var(--recap-content-inset) 3.3967cqw;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  border-radius: 0 0 var(--recap-copy-radius) var(--recap-copy-radius);
+  text-align: center;
+}
+
+.recap-copy p {
+  margin: 0;
+  font-size: clamp(28px, 4.4837cqw, 66px);
+  font-weight: 400;
+  line-height: 1.197;
+  letter-spacing: -0.035em;
+}
+
+.recap-copy > p:first-child {
+  font-weight: 500;
+}
+
+.recap-copy p + p:not(.recap-signoff) {
+  margin-top: 1.1549cqw;
+}
+
+.recap-signoff {
+  margin-top: 2.9891cqw !important;
+  color: var(--page-white);
+  font-size: clamp(38px, 5.9783cqw, 88px) !important;
+  font-weight: 500 !important;
+  line-height: 1.2045 !important;
+}
+
+.festival-on-screen-section {
+  /* Match the Festival on Screen → Newsletter gap exactly. */
+  padding: clamp(76px, 6vw, 116px) 0 0;
+  background: var(--page-white);
+}
+
+.festival-on-screen-card {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1843 / 910;
+  border-radius: clamp(12px, 1.8vw, 33px);
+  color: var(--page-white);
+  background: var(--festival-forest);
+}
+
+.festival-on-screen-tab {
+  position: absolute;
+  right: 2.7cqw;
+  bottom: calc(100% - 0.65cqw);
+  z-index: 1;
+  margin: 0;
+  color: var(--page-white);
+  font-size: 6.4544cqw;
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.festival-on-screen-type-layer {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.festival-on-screen-type-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.33em var(--festival-forest);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.festival-on-screen-type-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+}
+
+.festival-on-screen-copy {
+  position: absolute;
+  top: 6.7cqw;
+  bottom: 6.6cqw;
+  left: 4.5cqw;
+  /* Keep a clear gutter before the image column at every card width. */
+  width: 46cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.festival-on-screen-copy h3,
+.festival-on-screen-copy p {
+  margin: 0;
+}
+
+.festival-on-screen-copy h3 {
+  color: var(--festival-green);
+  font-size: 5.846cqw;
+  font-weight: 900;
+  line-height: 1.197;
+  letter-spacing: -0.035em;
+}
+
+.festival-on-screen-copy p {
+  margin-top: 2cqw;
+  color: var(--page-white);
+  font-size: 2.9843cqw;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.festival-on-screen-subscribe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15em;
+  width: 35.3228cqw;
+  height: 6.8367cqw;
+  margin-top: auto;
+  padding: 0;
+  border-radius: 4.1411cqw;
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  font-size: 4.6103cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.festival-on-screen-subscribe:hover {
+  color: var(--festival-green);
+  background: var(--page-white);
+}
+
+.festival-on-screen-subscribe:focus-visible {
+  outline: 4px solid var(--page-white);
+  outline-offset: 5px;
+}
+
+.festival-on-screen-image {
+  position: absolute;
+  top: 50%;
+  right: 2.7cqw;
+  width: 44.5475cqw;
+  aspect-ratio: 821.01 / 461.72;
+  height: auto;
+  border-radius: 1.576cqw;
+  object-fit: cover;
+  transform: translateY(-50%);
+}
+
+.newsletter-section {
+  padding: clamp(76px, 6vw, 116px) 0 clamp(48px, 5vw, 96px);
+  background: var(--page-white);
+}
+
+.newsletter-card {
+  /* Share the same inner grid as the Festival on Screen card above. */
+  --newsletter-inline-start: 4.5cqw;
+  --newsletter-inline-end: 2.7cqw;
+  position: relative;
+  container-type: inline-size;
+  border-radius: clamp(12px, 1.8vw, 33px);
+  color: var(--festival-forest);
+  background: var(--festival-green);
+}
+
+.newsletter-tab {
+  position: absolute;
+  left: var(--newsletter-inline-start);
+  bottom: calc(100% - 0.65cqw);
+  margin: 0;
+  color: var(--page-white);
+  font-size: 6.4544cqw;
+  font-weight: 900;
+  line-height: 0.84;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+.newsletter-type-layer {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.newsletter-type-outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.33em var(--festival-green);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.newsletter-type-foreground {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--page-white);
+  white-space: nowrap;
+}
+
+.newsletter-content {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  padding: 6.7cqw var(--newsletter-inline-end) 3.5cqw var(--newsletter-inline-start);
+}
+
+.newsletter-content h3,
+.newsletter-content p {
+  margin: 0;
+}
+
+.newsletter-content h3 {
+  color: var(--festival-forest);
+  font-size: 5.4797cqw;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.newsletter-content p {
+  max-width: 100%;
+  margin-top: 0.45cqw;
+  color: var(--festival-forest);
+  font-size: 2.9843cqw;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.newsletter-signup {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22.5176cqw;
+  height: 6.8095cqw;
+  margin-top: 3.5cqw;
+  padding: 0;
+  border: 0;
+  border-radius: 4.1411cqw;
+  color: var(--festival-green);
+  background: var(--page-white);
+  font-family: inherit;
+  font-size: 4.6103cqw;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.newsletter-signup > span {
+  /* The typeface's visible ink sits low within its line box. */
+  transform: translateY(-0.065em);
+}
+
+.newsletter-signup:hover {
+  color: var(--page-white);
+  background: var(--festival-forest);
+}
+
+.newsletter-signup:focus-visible {
+  outline: 4px solid var(--festival-forest);
+  outline-offset: 5px;
+}
+
+.site-footer {
+  --footer-brand-height: clamp(52px, 3.3854vw, 65px);
+  color: var(--page-white);
+  background: var(--festival-forest);
+  border-radius: clamp(16px, 1.5625vw, 30px) clamp(16px, 1.5625vw, 30px) 0 0;
+}
+
+.site-footer-content {
+  display: grid;
+  grid-template-columns: 44.75% minmax(0, 1fr);
+  min-height: clamp(430px, 27.8646vw, 535px);
+  padding: clamp(38px, 3.3854vw, 65px) clamp(24px, 2.2917vw, 44px) clamp(30px, 2.34375vw, 45px);
+}
+
+.footer-left-column {
+  min-width: 0;
+}
+
+.footer-festival-logo {
+  width: auto;
+  height: var(--footer-brand-height);
+}
+
+.footer-useful-links {
+  margin-top: clamp(32px, 2.0833vw, 40px);
+}
+
+.footer-useful-links h2,
+.footer-useful-links ul,
+.footer-useful-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-useful-links h2 {
+  color: var(--page-white);
+  font-size: clamp(20px, 1.71875vw, 33px);
+  font-weight: 600;
+  line-height: 1.2122;
+}
+
+.footer-useful-links ul {
+  list-style: none;
+  margin-top: clamp(8px, 0.625vw, 12px);
+}
+
+.footer-useful-links li {
+  color: var(--page-white);
+  font-size: clamp(17px, 1.4583vw, 28px);
+  font-weight: 500;
+  line-height: 1.2143;
+}
+
+.footer-useful-links__nested {
+  padding-left: clamp(16px, 1.25vw, 24px) !important;
+}
+
+.footer-main-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 0;
+}
+
+.footer-see-you-message {
+  margin: clamp(32px, 2.0833vw, 40px) 0 0;
+  color: var(--festival-green);
+  font-family: inherit;
+  font-size: clamp(32px, 3.2292vw, 62px);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.footer-description {
+  width: min(100%, 896px);
+  margin: clamp(32px, 2.0833vw, 40px) 0 0;
+  color: var(--page-white);
+  font-size: clamp(18px, 1.5104vw, 29px);
+  font-weight: 500;
+  line-height: 1.2069;
+}
+
+.footer-partners {
+  display: flex;
+  align-items: center;
+  min-height: var(--footer-brand-height);
+  margin: 0;
+}
+
+.footer-society-logo {
+  width: auto;
+  height: var(--footer-brand-height);
+  max-width: none;
+}
+
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.4167vw, 8px);
+  margin: 0 0 0 clamp(24px, 2.5vw, 48px);
+  padding: 0;
+  list-style: none;
+}
+
+.footer-social-links img {
+  width: clamp(32px, 2.9167vw, 56px);
+  height: auto;
+  max-width: none;
+}
+
+.footer-social-links li:last-child img {
+  width: clamp(36px, 3.125vw, 60px);
+}
+
+.footer-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  color: var(--page-white);
+  font-size: clamp(16px, 1.1458vw, 22px);
+  font-weight: 400;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .site-footer-content {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    min-height: auto;
+    padding: clamp(34px, 7vw, 56px) clamp(20px, 5vw, 40px) clamp(28px, 6vw, 48px);
+  }
+
+  .footer-description {
+    width: 100%;
+  }
+
+  .footer-partners {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .footer-social-links {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-footer-content {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .footer-main-column {
+    padding-top: 0;
+  }
+
+  .footer-description {
+    margin-left: 0;
+  }
+
+  .footer-see-you-message {
+    margin-left: 0;
+  }
+
+  .footer-partners {
+    margin-left: 0;
+  }
+
+  .footer-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-useful-links__nested {
+    padding-left: 20px !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  min-height: 100dvh;
+  padding: clamp(1.5rem, 3vw, 4rem);
+  overflow-y: auto;
+  color: var(--festival-green);
+  background: var(--festival-forest);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.menu-panel {
+  --menu-left-inset: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-left: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-right: clamp(32px, 2.9167vw, 56px);
+  --menu-footer-bottom: clamp(16px, 1.7229dvh, 23px);
+  position: fixed;
+  top: 0;
+  right: max(0px, calc((100vw - 1920px) / 2));
+  bottom: 0;
+  left: auto;
+  width: min(56.40625vw, 1083px);
+  min-height: 100dvh;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--page-white);
+  background: var(--festival-forest);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-100%);
+  transform-origin: top center;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+  will-change: transform;
+}
+
+.menu-panel.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.menu-navigation {
+  position: relative;
+  min-height: 100dvh;
+  padding: clamp(80px, 12.3596dvh, 165px) var(--menu-left-inset) 220px;
+}
+
+.menu-primary-links,
+.menu-primary-items,
+.menu-secondary-links {
+  display: grid;
+  justify-items: start;
+}
+
+.menu-primary-items,
+.menu-secondary-links {
+  gap: clamp(4px, 0.3646vw, 7px);
+}
+
+.menu-primary-links button,
+.menu-secondary-links button {
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  text-align: left;
+}
+
+.menu-section-title {
+  margin: 0 0 clamp(12px, 0.9375vw, 18px);
+  color: var(--page-white);
+  font-size: clamp(42px, 3.75vw, 72px);
+  line-height: 1.12;
+}
+
+.menu-primary-items button,
+.menu-secondary-links button {
+  color: var(--page-white);
+  font-size: clamp(30px, 3.0208vw, 58px);
+  line-height: 1.14;
+}
+
+.menu-primary-links button:hover {
+  color: var(--festival-green);
+}
+
+.menu-secondary-links {
+  margin-top: clamp(3rem, 4.5dvh, 4rem);
+}
+
+.menu-secondary-links button {
+  color: var(--festival-green);
+}
+
+.menu-secondary-links button:hover {
+  color: var(--page-white);
+}
+
+.menu-footer {
+  position: absolute;
+  right: var(--menu-footer-right);
+  bottom: var(--menu-footer-bottom);
+  left: var(--menu-footer-left);
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hackney-society-logo {
+  width: clamp(190px, 14.5833vw, 280px);
+  height: auto;
+  max-width: none;
+}
+
+.menu-social-links {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(6px, 0.5208vw, 10px);
+}
+
+.social-button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.social-button img {
+  height: auto;
+  max-width: none;
+}
+
+.social-facebook {
+  width: clamp(32px, 2.6042vw, 50px);
+}
+
+.social-x,
+.social-instagram {
+  width: clamp(33px, 2.7083vw, 52px);
+}
+
+.social-youtube {
+  width: clamp(37px, 3.0208vw, 58px);
+}
+
+/* At short desktop heights, preserve readable type and let the drawer scroll
+   instead of allowing the lower navigation to overlap the primary links. */
+@media (min-width: 901px) and (max-height: 900px) {
+  .menu-navigation {
+    min-height: auto;
+    padding-top: calc(var(--header-height) + clamp(2rem, 5dvh, 3.5rem));
+    padding-bottom: 0;
+  }
+
+  .menu-secondary-links {
+    position: static;
+    margin-top: clamp(4rem, 10dvh, 6rem);
+  }
+
+  .menu-footer {
+    position: static;
+    margin: clamp(4rem, 10dvh, 6rem) var(--menu-footer-right) var(--menu-footer-bottom) var(--menu-footer-left);
+  }
+}
+
+@media (max-width: 1600px) {
+  .layout-switcher {
+    gap: clamp(8px, 1.5vw, 20px);
+    margin-left: clamp(24px, 4vw, 64px);
+  }
+
+  .layout-switcher-button {
+    width: clamp(96px, 10vw, 150px);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --header-height: clamp(68px, 8.4444vw, 76px);
+    --header-inline-start: clamp(16px, 3.3333vw, 30px);
+  }
+
+  .site-header {
+    padding: 0 clamp(16px, 3.3333vw, 30px);
+  }
+
+  .brand {
+    width: clamp(132px, 18.5vw, 166px);
+  }
+
+  .layout-switcher {
+    gap: clamp(4px, 1vw, 8px);
+    margin-left: clamp(12px, 2vw, 24px);
+  }
+
+  .layout-switcher-button {
+    width: clamp(60px, 9vw, 92px);
+    height: clamp(32px, 4.5vw, 40px);
+    font-size: clamp(12px, 1.8vw, 16px);
+  }
+
+  .layout-switcher-label {
+    display: none;
+  }
+
+  .layout-switcher-number {
+    display: block;
+  }
+
+  .join-button {
+    width: clamp(128px, 20vw, 180px);
+    height: clamp(42px, 5.5556vw, 50px);
+    margin-right: clamp(12px, 2.2222vw, 20px);
+    font-size: clamp(19px, 2.6667vw, 24px);
+  }
+
+  .search-button {
+    width: clamp(34px, 5.5556vw, 50px);
+    margin-right: clamp(10px, 1.3333vw, 12px);
+  }
+
+  .menu-button {
+    width: clamp(36px, 5.5556vw, 50px);
+  }
+
+  .menu-panel {
+    right: 0;
+    width: 100%;
+  }
+
+  .menu-navigation {
+    min-height: auto;
+    padding: clamp(124px, 18vw, 162px) var(--header-inline-start) 0;
+  }
+
+  .menu-section-title {
+    font-size: clamp(48px, 8vw, 72px);
+  }
+
+  .menu-primary-items button,
+  .menu-secondary-links button {
+    font-size: clamp(36px, 6.2222vw, 56px);
+  }
+
+  .menu-secondary-links {
+    position: static;
+    margin-top: clamp(3.5rem, 8dvh, 5rem);
+  }
+
+  .menu-footer {
+    position: static;
+    margin: clamp(5rem, 12dvh, 8rem) var(--header-inline-start) clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .hackney-society-logo {
+    width: clamp(160px, 28vw, 252px);
+  }
+
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 68px;
+    --header-inline-start: 12px;
+  }
+
+  .site-header {
+    padding: 0 12px;
+  }
+
+  .brand {
+    width: min(33vw, 116px);
+  }
+
+  .layout-switcher {
+    gap: 3px;
+    margin-left: auto;
+    margin-right: 7px;
+  }
+
+  .layout-switcher-button {
+    width: 30px;
+    height: 30px;
+    border-width: 1.5px;
+    font-size: 11px;
+  }
+
+  .header-actions {
+    gap: 7px;
+  }
+
+  .join-button {
+    width: 104px;
+    height: 39px;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .search-button,
+  .menu-button {
+    width: 30px;
+    margin: 0;
+  }
+
+  .menu-navigation {
+    padding-top: 104px;
+  }
+
+  .menu-section-title {
+    font-size: 42px;
+  }
+
+  .menu-primary-items button,
+  .menu-secondary-links button {
+    font-size: 32px;
+  }
+
+  .menu-footer {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 4.5rem;
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+
+  .hackney-society-logo {
+    width: 200px;
+  }
+
+  .menu-social-links {
+    gap: 10px;
+  }
+
+}
+
+/* On phones, place the layout switcher on its own row beneath the main bar. */
+@media (max-width: 700px) {
+  :root {
+    --header-height: 116px;
+  }
+
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 68px 48px;
+    align-items: center;
+    height: var(--header-height);
+    padding: 0 12px;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .header-actions {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-left: 0;
+  }
+
+  .layout-switcher {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 6px 0 8px;
+  }
+
+  .layout-switcher-button {
+    width: 100%;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .layout-switcher-label {
+    display: block;
+  }
+
+  .layout-switcher-number {
+    display: none;
+  }
+
+  :root {
+    --card-corner-radius: 10px;
+  }
+
+  .festival-recap {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .recap-overview {
+    margin-right: var(--header-inline-start);
+    margin-left: var(--header-inline-start);
+  }
+
+  .festival-dates-heading {
+    min-height: 0;
+    padding: clamp(28px, 8vw, 48px) clamp(16px, 5.3333vw, 32px) 0;
+    font-size: clamp(26px, 8.5vw, 64px);
+    line-height: 0.9;
+    white-space: nowrap;
+    /* The mobile line-height is taller than desktop, so it needs a matching
+       ink-edge correction to meet the green panel exactly. */
+    transform: translateY(0.08em);
+  }
+
+  .festival-dates-panel {
+    min-height: 0;
+    padding: clamp(28px, 8vw, 48px) clamp(16px, 5.3333vw, 32px) clamp(20px, 5.3333vw, 32px);
+    row-gap: clamp(22px, 6.6667vw, 40px);
+  }
+
+  .festival-date-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .festival-date-row h3,
+  .festival-date-row time {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  .festival-date-row h3 {
+    font-size: 30px;
+  }
+
+  .festival-date-row time {
+    color: var(--page-white);
+  }
+
+  .festival-satellite-events {
+    gap: 8px;
+    font-size: clamp(13px, 4.2vw, 25px);
+    white-space: nowrap;
+  }
+
+  .contact-section {
+    --recap-intro-bottom-space: clamp(32px, 8vw, 52px);
+  }
+
+  .recap-copy {
+    /* Keep the introduction clear of the rounded recap panel above. */
+    --recap-copy-top-offset: clamp(12px, 3.5cqw, 18px);
+  }
+
+  .hhf-2026-surface {
+    margin-top: clamp(24px, 6vw, 36px);
+  }
+
+  .contact-card {
+    width: 100%;
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 14px;
+    row-gap: 8px;
+  }
+
+  .hhf-2026-image {
+    width: 100%;
+  }
+
+  .contact-card-message {
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .contact-card-email {
+    font-size: clamp(18px, 6.6667cqw, 26px);
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+/* Keep the 2026 recap as the desktop composition at every size.  The
+   component scales with its own width instead of switching to a single column. */
+@media (max-width: 900px) {
+  .festival-recap {
+    --recap-panel-join: 2.5cqw;
+    padding-bottom: 0;
+  }
+
+  .recap-frame {
+    --recap-content-inset: max(16px, 2.5cqw);
+    width: 100%;
+  }
+
+  .recap-overview {
+    grid-template-columns: max-content 1fr;
+    column-gap: 0.75cqw;
+    align-items: end;
+    margin: 0 var(--recap-content-inset);
+  }
+
+  .recap-event-count {
+    grid-row: 1;
+    font-size: 10.2765cqw;
+  }
+
+  .recap-overview-copy p {
+    font-size: 4.2299cqw;
+    line-height: 0.98;
+  }
+
+  .recap-landscape-layout {
+    grid-template-columns: 57.3288% 1fr;
+    margin-top: calc(1.1cqw + 2px);
+  }
+
+  .recap-programme-stats {
+    align-self: end;
+    align-content: start;
+    justify-items: start;
+    gap: 0.3cqw;
+    padding: 0;
+  }
+
+  .recap-programme-stat {
+    font-size: 3.9402cqw;
+    line-height: 1.06;
+  }
+
+  .recap-portrait-layout {
+    grid-template-columns: 46.6046% 1fr;
+    margin-top: 2.4cqw;
+  }
+
+  .recap-portrait-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .recap-portrait-details {
+    grid-row: auto;
+    justify-items: end;
+    gap: 1.2228cqw;
+    margin: 0;
+    text-align: right;
+  }
+
+  .recap-media-stats {
+    align-content: start;
+    justify-items: end;
+    gap: 0.3cqw;
+    padding: 0;
+    text-align: right;
+  }
+
+  .recap-media-stats p {
+    font-size: 3.9402cqw;
+    line-height: 1.202;
+    white-space: nowrap;
+  }
+
+  .recap-ticket-stat {
+    justify-items: end;
+    margin: 0;
+    text-align: right;
+  }
+
+  .recap-ticket-count {
+    font-size: 6.1141cqw;
+    letter-spacing: 0.01em;
+  }
+
+  .recap-ticket-label {
+    font-size: 5.7065cqw;
+  }
+
+  .recap-ticket-count,
+  .recap-ticket-label {
+    line-height: 1.12;
+  }
+
+  .recap-side-copy {
+    font-size: 3.3967cqw;
+    line-height: 1.2;
+  }
+
+  .recap-copy {
+    --recap-copy-gap: 4.0761cqw;
+    margin: calc(-1 * var(--recap-copy-radius)) 0 0;
+  }
+
+  .recap-copy p {
+    font-size: 4.4837cqw;
+    line-height: 1.197;
+  }
+
+  .recap-copy p + p:not(.recap-signoff) {
+    margin-top: 1.1549cqw;
+  }
+
+  .recap-signoff {
+    margin-top: 2.9891cqw !important;
+    font-size: 5.9783cqw !important;
+    line-height: 1.2045 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .recap-overview {
+    grid-template-columns: max-content 1fr;
+    row-gap: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* TEST2: compare the hero artwork beside the full 2027 information group. */
+@media (min-width: 1201px) {
+  :root {
+    --layout-two-content-width: min(1200px, calc(100% - 64px));
+  }
+
+  .layout-two-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.07fr) minmax(0, 0.93fr);
+    align-items: start;
+    gap: clamp(32px, 3.3333vw, 64px);
+    width: calc(100% - (var(--header-inline-start) * 2));
+    margin: 30px var(--header-inline-start) 0;
+  }
+
+  .layout-two-intro .hero {
+    --hero-top-gap: 0px;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .layout-two-intro .hero-artwork {
+    width: 100% !important;
+    aspect-ratio: 1766 / 1353;
+  }
+
+  .layout-two-intro .hero-artwork-image {
+    top: 0;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+
+  .layout-two-intro .hero-artwork-title {
+    top: 78.3% !important;
+    left: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+  }
+
+  .layout-two-event-stack {
+    min-width: 0;
+    container-type: inline-size;
+  }
+
+  .layout-two-event-stack .content-card {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .layout-two-event-stack .festival-dates-heading {
+    min-height: clamp(80px, 9cqw, 96px);
+    margin-top: 0;
+    padding-inline: 22px;
+    font-size: clamp(54px, 8.5cqw, 76px);
+  }
+
+  .layout-two-event-stack .festival-dates-panel {
+    min-height: clamp(450px, 59cqw, 500px);
+    padding: 32px 28px 14px;
+    row-gap: 22px;
+  }
+
+  .layout-two-event-stack .festival-date-row h3 {
+    font-size: clamp(40px, 7cqw, 60px);
+  }
+
+  .layout-two-event-stack .festival-date-row time {
+    font-size: clamp(20px, 3.5cqw, 30px);
+  }
+
+  .layout-two-event-stack .festival-satellite-events {
+    font-size: clamp(18px, 3cqw, 26px);
+  }
+
+  .layout-two-event-stack .contact-section {
+    --recap-intro-bottom-space: 0px;
+  }
+
+  /* The remaining content no longer inherits the hero image's measured width. */
+  .layout-two-2026 .content-card,
+  .festival-on-screen-section .festival-on-screen-card,
+  .newsletter-section .newsletter-card {
+    width: var(--layout-two-content-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .festival-recap .recap-frame {
+    width: var(--layout-two-content-width);
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
