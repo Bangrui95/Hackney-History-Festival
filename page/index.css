@@ -2091,17 +2091,24 @@ body.menu-open:has(.menu-panel.is-closing) .menu-backdrop {
     --menu-left-inset: var(--header-inline-start);
     --menu-footer-left: clamp(12px, 3.3333vw, 30px);
     --menu-footer-right: clamp(12px, 3.3333vw, 30px);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
     bottom: auto;
     right: 0;
     left: 0;
     width: 100%;
     min-height: 0;
     height: 66.6667dvh;
+    overflow: hidden;
   }
 
   .menu-navigation {
-    min-height: 100%;
-    padding: clamp(124px, 18vw, 162px) var(--menu-left-inset) 0;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: clamp(124px, 18vw, 162px) var(--menu-left-inset) clamp(28px, 5dvh, 48px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .menu-primary-links,
@@ -2138,6 +2145,19 @@ body.menu-open:has(.menu-panel.is-closing) .menu-backdrop {
   .menu-secondary-links {
     position: static;
     margin-top: clamp(1.5rem, 3.5dvh, 2.25rem);
+  }
+
+  /* The footer owns its own row, so a long navigation list can scroll above it
+     without ever covering the Hackney Society logo or social links. */
+  .menu-footer {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 2;
+    flex: 0 0 auto;
+    padding: clamp(10px, 1.8dvh, 16px) var(--menu-footer-right) var(--menu-footer-bottom) var(--menu-footer-left);
+    background: var(--festival-forest);
   }
 
   .hackney-society-logo {
