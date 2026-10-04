@@ -26,7 +26,7 @@
 .content-page--get-involved .content-page-main {
   display: block;
   min-height: 0;
-  padding: 0 0 clamp(51px, 6vw, 99px);
+  padding: 0;
   overflow: clip;
   background: var(--page-canvas);
 }
@@ -34,12 +34,43 @@
 .content-page--get-involved {
   --involved-gutter: clamp(24px, 10vw, 192px);
   --involved-content-width: min(1240px, calc(100% - var(--involved-gutter) - var(--involved-gutter)));
-  --involved-section-gap: clamp(16px, 1.2vw, 24px);
-  --involved-module-gap: clamp(44px, 4.8vw, 76px);
-  --involved-ways-top-space: clamp(30px, 3.5vw, 48px);
-  --involved-ways-bottom-space: clamp(34px, 4vw, 55px);
-  --involved-contact-space: clamp(50px, 7.5vw, 109px);
-  --involved-card-stack-space: clamp(68.4px, 7.5vw, 129.6px);
+
+  /*
+   * Get involved: each module owns its own responsive space before and
+   * after it. Adjacent values deliberately add up to the visual module gap;
+   * they are not inherited from the homepage and are not divided in half.
+   */
+  /* The first module retains its own normal top padding. The navigation
+     contributes only the remainder needed to reach the intended first-view
+     breathing room; it never replaces the module's spacing. */
+  --involved-hero-space-before: clamp(39px, 3.05vw, 39.12px);
+  --involved-header-space-after: max(0px, calc(clamp(36px, 4vw, 56px) - var(--involved-hero-space-before)));
+  --involved-hero-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --involved-ways-space-before: clamp(39px, 3.05vw, 39.12px);
+  --involved-ways-space-after: clamp(30px, 2.35vw, 30.5px);
+  --involved-ways-tab-rise: clamp(13.8px, 3.125vw, 47px);
+
+  --involved-knowledge-space-before: clamp(38.4px, 3vw, 38.62px);
+  --involved-knowledge-space-after: clamp(28px, 2.2vw, 28.5px);
+
+  --involved-contact-space-before: clamp(40.4px, 3.16vw, 40.62px);
+  --involved-contact-space-after: clamp(30px, 2.35vw, 30.5px);
+  --involved-contact-tab-rise: clamp(16.7px, 3.44vw, 53px);
+
+  --involved-newsletter-space-before: clamp(38.4px, 3vw, 38.62px);
+  --involved-newsletter-space-after: clamp(29.4px, 2.3vw, 30px);
+  --involved-newsletter-tab-rise: clamp(16.7px, 3.44vw, 53px);
+
+  --involved-footer-space-before: clamp(39px, 3.05vw, 39.12px);
+}
+
+.content-page--get-involved .site-footer {
+  margin-top: var(--involved-footer-space-before);
+}
+
+.content-page--get-involved .content-page-main {
+  padding-top: var(--involved-header-space-after);
 }
 
 .involved-hero,
@@ -67,7 +98,8 @@
   grid-template-columns: minmax(0, 1.02fr) minmax(300px, 0.98fr);
   gap: clamp(28px, 4vw, 60px);
   align-items: center;
-  padding: clamp(36px, 4vw, 56px) 0 var(--involved-module-gap);
+  padding-top: var(--involved-hero-space-before);
+  padding-bottom: var(--involved-hero-space-after);
 }
 
 .involved-hero-copy {
@@ -126,7 +158,10 @@
 }
 
 .involved-ways {
-  padding: var(--involved-ways-top-space) 0 var(--involved-ways-bottom-space);
+  /* The raised title is outside the card box, so its visual rise is added
+     only to this module's own top space. */
+  padding-top: calc(var(--involved-ways-space-before) + var(--involved-ways-tab-rise));
+  padding-bottom: var(--involved-ways-space-after);
 }
 
 .involved-ways-card {
@@ -204,7 +239,8 @@
   grid-template-columns: minmax(0, 0.93fr) minmax(0, 1.07fr);
   gap: clamp(28px, 4vw, 60px);
   align-items: center;
-  padding-block: var(--involved-section-gap);
+  padding-top: var(--involved-knowledge-space-before);
+  padding-bottom: var(--involved-knowledge-space-after);
 }
 
 .involved-local-copy {
@@ -232,7 +268,8 @@
 }
 
 .involved-contact-section {
-  padding-top: var(--involved-contact-space);
+  padding-top: calc(var(--involved-contact-space-before) + var(--involved-contact-tab-rise));
+  padding-bottom: var(--involved-contact-space-after);
 }
 
 .involved-contact-card {
@@ -306,7 +343,8 @@
 .involved-newsletter-section {
   width: var(--involved-content-width);
   margin: 0 auto;
-  padding-top: var(--involved-card-stack-space);
+  padding-top: calc(var(--involved-newsletter-space-before) + var(--involved-newsletter-tab-rise));
+  padding-bottom: var(--involved-newsletter-space-after);
 }
 
 .involved-newsletter-card {
@@ -329,7 +367,7 @@
 .content-page--our-story .content-page-main {
   display: block;
   min-height: 0;
-  padding: 0 0 clamp(51px, 6vw, 99px);
+  padding: 0;
   overflow: clip;
   background: var(--page-canvas);
 }
@@ -337,15 +375,53 @@
 .content-page--our-story {
   --story-gutter: clamp(24px, 10vw, 192px);
   --story-content-width: min(1320px, calc(100% - var(--story-gutter) - var(--story-gutter)));
-  --story-section-gap: clamp(16px, 1.2vw, 24px);
-  --story-module-gap: clamp(44px, 4.8vw, 76px);
-  --story-clues-top-space: clamp(40px, 5.5vw, 79px);
-  --story-editorial-block-space: clamp(44px, 5vw, 72px);
-  --story-clues-bottom-space: max(0px, calc(var(--story-module-gap) - var(--story-editorial-block-space)));
-  --story-card-approach-space: clamp(21px, 3.9vw, 55px);
-  --story-community-bottom-space: clamp(24px, 1.8vw, 30px);
-  --story-cta-top-space: clamp(33px, 3.9vw, 68px);
-  --story-card-stack-space: clamp(68.4px, 7.7vw, 133.1px);
+
+  /* Our story keeps its own visual rhythm. Every module has a separately
+     named responsive before/after value, while raised card titles receive
+     their own visual-rise compensation. */
+  /* The first module has the same normal top padding as the other modules.
+     Navigation-level space only supplements that padding when needed. */
+  --story-hero-space-before: clamp(39px, 3.05vw, 39.12px);
+  --story-header-space-after: max(0px, calc(clamp(36px, 4.2vw, 64px) - var(--story-hero-space-before)));
+  --story-hero-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --story-intro-space-before: clamp(39px, 3.05vw, 39.12px);
+  --story-intro-space-after: clamp(30px, 2.35vw, 30.5px);
+
+  --story-clues-space-before: clamp(38.4px, 3vw, 38.62px);
+  --story-clues-space-after: clamp(30px, 2.35vw, 30.5px);
+  --story-clues-tab-rise: clamp(13.8px, 3.125vw, 47px);
+
+  --story-place-space-before: clamp(38.4px, 3vw, 38.62px);
+  --story-place-space-after: clamp(28px, 2.2vw, 28.5px);
+
+  --story-stakes-space-before: clamp(40.4px, 3.16vw, 40.62px);
+  --story-stakes-space-after: clamp(30px, 2.35vw, 30.5px);
+  --story-stakes-tab-rise: clamp(15.5px, 3.125vw, 53px);
+
+  --story-community-space-before: clamp(38.4px, 3vw, 38.62px);
+  --story-community-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --story-ending-space-before: clamp(39px, 3.05vw, 39.12px);
+  --story-ending-space-after: clamp(30px, 2.35vw, 30.5px);
+
+  --story-cta-space-before: clamp(38.4px, 3vw, 38.62px);
+  --story-cta-space-after: clamp(30px, 2.35vw, 30.5px);
+  --story-cta-tab-rise: clamp(16.7px, 3.43vw, 49.5px);
+
+  --story-newsletter-space-before: clamp(38.4px, 3vw, 38.62px);
+  --story-newsletter-space-after: clamp(29.4px, 2.3vw, 30px);
+  --story-newsletter-tab-rise: clamp(16.7px, 3.44vw, 53px);
+
+  --story-footer-space-before: clamp(39px, 3.05vw, 39.12px);
+}
+
+.content-page--our-story .site-footer {
+  margin-top: var(--story-footer-space-before);
+}
+
+.content-page--our-story .content-page-main {
+  padding-top: var(--story-header-space-after);
 }
 
 .story-hero,
@@ -377,7 +453,8 @@
   grid-template-areas: "copy visual";
   column-gap: clamp(28px, 4vw, 72px);
   align-items: start;
-  padding: clamp(36px, 4.2vw, 64px) 0 var(--story-module-gap);
+  padding-top: var(--story-hero-space-before);
+  padding-bottom: var(--story-hero-space-after);
 }
 
 .story-hero-copy {
@@ -442,14 +519,15 @@
 }
 
 .story-section {
-  border-top: 2px solid var(--festival-forest);
+  padding-top: var(--story-intro-space-before);
+  padding-bottom: var(--story-intro-space-after);
 }
 
 .story-section-intro {
   box-sizing: border-box;
   width: 100%;
-  padding: clamp(26px, 3.1vw, 48px) clamp(24px, 3.6vw, 56px)
-    clamp(26px, 3.1vw, 48px) 0;
+  border-top: 2px solid var(--festival-forest);
+  padding: clamp(26px, 3.1vw, 48px) clamp(24px, 3.6vw, 56px) 0 0;
 }
 
 .story-section-number {
@@ -500,7 +578,8 @@
 }
 
 .story-clues {
-  padding: var(--story-clues-top-space) 0 var(--story-clues-bottom-space);
+  padding-top: calc(var(--story-clues-space-before) + var(--story-clues-tab-rise));
+  padding-bottom: var(--story-clues-space-after);
 }
 
 .story-clues-card {
@@ -579,7 +658,8 @@
   align-items: center;
   width: var(--story-content-width);
   margin: 0 auto;
-  padding: var(--story-editorial-block-space) 0;
+  padding-top: var(--story-place-space-before);
+  padding-bottom: var(--story-place-space-after);
 }
 
 .story-place-visual {
@@ -606,7 +686,8 @@
 
 /* A deliberately prominent use of the shared feature-card system. */
 .story-stakes {
-  padding: var(--story-card-approach-space) 0 0;
+  padding-top: calc(var(--story-stakes-space-before) + var(--story-stakes-tab-rise));
+  padding-bottom: var(--story-stakes-space-after);
 }
 
 .story-stakes-card {
@@ -683,8 +764,8 @@
 
 .story-community {
   grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-  padding-top: var(--story-module-gap);
-  padding-bottom: var(--story-community-bottom-space);
+  padding-top: var(--story-community-space-before);
+  padding-bottom: var(--story-community-space-after);
 }
 
 .story-community-visual {
@@ -694,7 +775,8 @@
 .story-ending {
   width: min(990px, var(--story-content-width));
   margin: 0 auto;
-  padding: 0 0 clamp(40px, 4.5vw, 64px);
+  padding-top: var(--story-ending-space-before);
+  padding-bottom: var(--story-ending-space-after);
   text-align: center;
 }
 
@@ -704,13 +786,14 @@
   margin-left: auto;
 }
 
-.story-ending p {
+.story-ending > p:last-child {
   max-width: 640px;
   margin: clamp(26px, 3vw, 46px) auto 0;
 }
 
 .story-cta-section {
-  padding-top: var(--story-cta-top-space);
+  padding-top: calc(var(--story-cta-space-before) + var(--story-cta-tab-rise));
+  padding-bottom: var(--story-cta-space-after);
 }
 
 .story-cta-card {
@@ -795,7 +878,8 @@
 .story-newsletter-section {
   width: var(--story-content-width);
   margin: 0 auto;
-  padding-top: var(--story-card-stack-space);
+  padding-top: calc(var(--story-newsletter-space-before) + var(--story-newsletter-tab-rise));
+  padding-bottom: var(--story-newsletter-space-after);
 }
 
 .story-newsletter-card {
@@ -893,16 +977,15 @@
   }
 
   .content-page--our-story .content-page-main {
-    padding: 0 0 47px;
+    /* Keep the page-level space below the fixed navigation. Only the former
+       generic inline/bottom padding is removed on small screens. */
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
   }
 
   .content-page--our-story {
     --story-gutter: 20px;
-    --story-module-gap: 50px;
-  }
-
-  .story-hero {
-    padding: 34px 0 50px;
   }
 
   .story-hero h1 {
@@ -911,20 +994,6 @@
 
   .story-hero-standfirst {
     font-size: 19px;
-  }
-
-  .story-section,
-  .story-place,
-  .story-community {
-    padding: 44px 0;
-  }
-
-  .story-clues {
-    padding: 20px 0 6px;
-  }
-
-  .story-community {
-    padding: var(--story-module-gap) 0;
   }
 
   .story-clues-list {
@@ -947,15 +1016,10 @@
     width: 100%;
     margin-right: 0;
     margin-left: 0;
-    padding: var(--story-card-approach-space) 0 0;
   }
 
   .story-stakes-card {
     border-radius: clamp(12px, 1.8vw, 33px);
-  }
-
-  .story-ending {
-    padding: 0 0 32px;
   }
 
   .story-cta-section,
@@ -993,24 +1057,18 @@
 
 @media (max-width: 560px) {
   .content-page--get-involved .content-page-main {
-    padding: 0 0 47px;
+    /* Do not erase the page-level navigation-to-content spacing on phones. */
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
   }
 
   .content-page--get-involved {
     --involved-gutter: 20px;
-    --involved-module-gap: 50px;
-  }
-
-  .involved-hero {
-    padding: 34px 0 var(--involved-module-gap);
   }
 
   .involved-hero h1 {
     font-size: clamp(46px, 13vw, 62px);
-  }
-
-  .involved-ways {
-    padding: 14px 0 50px;
   }
 
   .involved-ways-list {
@@ -1023,15 +1081,10 @@
     padding: 18px 0;
   }
 
-  .involved-local-knowledge {
-    padding-block: var(--involved-section-gap);
-  }
-
   .involved-contact-section {
     width: 100%;
     margin-right: 0;
     margin-left: 0;
-    padding-top: calc(var(--involved-module-gap) + 17px);
   }
 
   .involved-newsletter-section {

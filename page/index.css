@@ -69,6 +69,32 @@ body {
   background: transparent;
 }
 
+/* Homepage module rhythm begins at Festival dates. The hero has its own
+   standalone artwork calculation above it. Every following module declares
+   its own responsive space before and after, so the WordPress block version
+   can later expose either edge without relying on one global half-gap. */
+.home-page {
+  --home-dates-contact-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-dates-contact-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-join-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-join-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-highlights-recap-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-highlights-recap-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-about-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-about-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-screen-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-screen-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-newsletter-space-before: clamp(39px, 3.05vw, 39.12px);
+  --home-newsletter-space-after: clamp(29.4px, 2.3vw, 30px);
+
+  --home-footer-space-before: clamp(39px, 3.05vw, 39.12px);
+}
+
 body.panel-open {
   overflow: hidden;
 }
@@ -271,7 +297,12 @@ body.menu-open .site-header {
 @media (min-width: 1201px) {
   .hero {
     place-items: start center;
-    padding-bottom: calc(var(--hero-top-gap) + var(--hero-title-overflow, 0px));
+    /* The Hero owns the desktop clearance before the first editable module.
+       Keep the former 24px dates-heading offset here so Festival dates itself
+       begins only with its shared module padding. */
+    padding-bottom: calc(
+      var(--hero-top-gap) + var(--hero-title-overflow, 0px) + 24px
+    );
   }
 
   .hero-artwork-image {
@@ -287,7 +318,7 @@ body.menu-open .site-header {
 
   .festival-dates .festival-dates-heading {
     box-sizing: border-box;
-    margin-top: 24px;
+    margin-top: 0;
     padding: 0;
   }
 
@@ -369,9 +400,20 @@ body.menu-open .site-header {
 
 /* Join our Festival */
 .join-festival {
-  /* Match the shared gap used before the Newsletter card below. */
-  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  padding: var(--home-join-space-before) 0 var(--home-join-space-after);
   background: var(--page-canvas);
+}
+
+.join-festival-frame,
+.hhf-2026-frame,
+.about-us-frame,
+.festival-on-screen-frame,
+.newsletter-frame {
+  container-type: inline-size;
+}
+
+.join-festival-frame {
+  --card-inline-end: var(--standard-card-inline-end);
 }
 
 .join-festival-card {
@@ -386,11 +428,12 @@ body.menu-open .site-header {
 }
 
 .join-festival-tab {
-  position: absolute;
-  right: var(--standard-card-inline-end);
-  bottom: calc(100% - var(--standard-card-tab-overlap));
+  position: relative;
   z-index: 1;
-  margin: 0;
+  display: flex;
+  justify-content: end;
+  padding-right: var(--card-inline-end);
+  margin: 0 0 calc(-1 * var(--standard-card-tab-overlap));
   color: var(--page-white);
   font-family: "Decalotype", Arial, sans-serif;
   font-size: var(--standard-card-tab-size);
@@ -582,11 +625,21 @@ body.menu-open .site-header {
   letter-spacing: -0.015em;
 }
 
-/* Contact and 2026 recap */
-.contact-section {
-  --recap-intro-bottom-space: clamp(25.2px, 2.8125vw, 54px);
+/* Festival dates and contact are a single editorial module. */
+.home-module--dates-contact {
   display: flow-root;
-  padding-bottom: 0;
+  /* Hero keeps its separate composition, while this first editable module
+     still owns both of its standard block edges. */
+  padding: var(--home-dates-contact-space-before) 0 var(--home-dates-contact-space-after);
+  background: var(--page-canvas);
+}
+
+/* Highlights and the 2026 recap now share one module boundary. Keep the
+   existing block formatting context so the visual composition is unchanged. */
+.home-module--highlights-recap {
+  display: flow-root;
+  /* The intentional internal recap overlap stays inside this one module. */
+  padding: var(--home-highlights-recap-space-before) 0 var(--home-highlights-recap-space-after);
   background: var(--page-canvas);
 }
 
@@ -639,11 +692,21 @@ body.menu-open .site-header {
 }
 
 .hhf-2026-surface {
+  --recap-intro-bottom-space: clamp(25.2px, 2.8125vw, 54px);
   container-type: inline-size;
   position: relative;
-  margin-top: clamp(32px, 3.33335vw, 64px);
+  margin-top: 0;
   padding-bottom: var(--recap-intro-bottom-space);
   background: transparent;
+}
+
+/* The 2026 lock-up rises above the artwork. Its frame contributes the same
+   height in normal flow, so the module's top padding begins above the label,
+   rather than above only the artwork. */
+.hhf-2026-frame::before {
+  display: block;
+  height: 1.07cqw;
+  content: "";
 }
 
 /* The dark field and every typographic layer are editable HTML/CSS. */
@@ -801,10 +864,10 @@ body.menu-open .site-header {
   text-align: right;
 }
 
-/* Reuse this class for every future activity or contact card. */
+/* Reuse this class for a contact card or for the frame that contains a
+   raised-label card. A labelled frame owns both the tab and card body. */
 .content-card {
-  /* Shared vertical inset for reusable feature cards. The raised title tabs
-     intentionally sit outside this content boundary. */
+  /* Shared vertical inset for reusable feature-card bodies. */
   --card-content-block-start: var(--standard-card-content-block-start);
   --card-content-block-end: var(--standard-card-content-block-end);
   box-sizing: border-box;
@@ -1153,8 +1216,13 @@ body.menu-open .site-header {
 
 /* About us */
 .about-us-section {
-  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  padding: var(--home-about-space-before) 0 var(--home-about-space-after);
   background: var(--page-canvas);
+}
+
+.about-us-frame,
+.newsletter-frame {
+  --card-inline-start: var(--standard-card-inline-start);
 }
 
 .about-us-card {
@@ -1341,8 +1409,7 @@ body.menu-open .site-header {
 
 /* Festival on Screen */
 .festival-on-screen-section {
-  /* Match the Festival on Screen → Newsletter gap exactly. */
-  padding: clamp(68.4px, 5.4vw, 104.4px) 0 0;
+  padding: var(--home-screen-space-before) 0 var(--home-screen-space-after);
   background: var(--page-canvas);
 }
 
@@ -1356,11 +1423,12 @@ body.menu-open .site-header {
 }
 
 .festival-on-screen-tab {
-  position: absolute;
-  right: var(--standard-card-inline-end);
-  bottom: calc(100% - var(--standard-card-tab-overlap));
+  position: relative;
   z-index: 1;
-  margin: 0;
+  display: flex;
+  justify-content: end;
+  padding-right: var(--standard-card-inline-end);
+  margin: 0 0 calc(-1 * var(--standard-card-tab-overlap));
   color: var(--page-white);
   font-size: var(--standard-card-tab-size);
   font-weight: 900;
@@ -1482,7 +1550,7 @@ body.menu-open .site-header {
 
 /* Newsletter */
 .newsletter-section {
-  padding: clamp(68.4px, 5.4vw, 104.4px) 0 clamp(43.2px, 4.5vw, 86.4px);
+  padding: var(--home-newsletter-space-before) 0 var(--home-newsletter-space-after);
   background: var(--page-canvas);
 }
 
@@ -1499,10 +1567,11 @@ body.menu-open .site-header {
 
 /* Shared raised title treatment for the lime cards. */
 .card-tab {
-  position: absolute;
-  left: var(--card-inline-start);
-  bottom: calc(100% - var(--standard-card-tab-overlap));
-  margin: 0;
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding-left: var(--card-inline-start);
+  margin: 0 0 calc(-1 * var(--standard-card-tab-overlap));
   color: var(--page-white);
   font-size: var(--standard-card-tab-size);
   font-weight: 900;
@@ -1597,6 +1666,8 @@ body.menu-open .site-header {
 /* Footer */
 .site-footer {
   --footer-brand-height: clamp(52px, 3.3854vw, 65px);
+  /* Footer owns a named upper edge just like every homepage module. */
+  margin-top: var(--home-footer-space-before);
   color: var(--page-white);
   background: var(--festival-forest);
   border-radius: clamp(16px, 1.5625vw, 30px) clamp(16px, 1.5625vw, 30px) 0 0;
@@ -2288,7 +2359,7 @@ body.menu-open:has(.menu-panel.is-closing) .menu-backdrop {
     white-space: nowrap;
   }
 
-  .contact-section {
+  .hhf-2026-surface {
     --recap-intro-bottom-space: clamp(28.8px, 7.2vw, 46.8px);
   }
 
@@ -2298,7 +2369,8 @@ body.menu-open:has(.menu-panel.is-closing) .menu-backdrop {
   }
 
   .hhf-2026-surface {
-    margin-top: clamp(24px, 6vw, 36px);
+    /* The module boundary now supplies this space on every viewport. */
+    margin-top: 0;
   }
 
   .contact-card {

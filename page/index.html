@@ -57,8 +57,8 @@
         </div>
       </header>
 
-      <main id="main-content">
-        <section class="hero" aria-label="4th Hackney History Festival">
+      <main class="home-modules" id="main-content">
+        <section class="home-module home-module--hero hero" aria-label="4th Hackney History Festival">
           <h1 class="visually-hidden">4th Hackney History Festival</h1>
           <div class="hero-artwork" aria-hidden="true">
             <img
@@ -78,69 +78,74 @@
           </div>
         </section>
 
-        <section class="festival-dates" aria-labelledby="festival-dates-heading">
-          <h2 class="festival-dates-heading content-card" id="festival-dates-heading">
-            <span class="festival-type-layer">
-              <span class="festival-type-outline" aria-hidden="true">Returns in May 2027!</span>
-              <span class="festival-type-foreground">Returns in May 2027!</span>
-            </span>
-          </h2>
+        <section class="home-module home-module--dates-contact" aria-label="Festival dates and contact the festival team">
+          <section class="festival-dates" aria-labelledby="festival-dates-heading">
+            <h2 class="festival-dates-heading content-card" id="festival-dates-heading">
+              <span class="festival-type-layer">
+                <span class="festival-type-outline" aria-hidden="true">Returns in May 2027!</span>
+                <span class="festival-type-foreground">Returns in May 2027!</span>
+              </span>
+            </h2>
 
-          <div class="festival-dates-panel content-card">
-            <div class="festival-dates-content">
-              <div class="festival-date-row">
-                <h3>Hackney Archives</h3>
-                <time datetime="2027-05-08">Sat 08 May</time>
+            <div class="festival-dates-panel content-card">
+              <div class="festival-dates-content">
+                <div class="festival-date-row">
+                  <h3>Hackney Archives</h3>
+                  <time datetime="2027-05-08">Sat 08 May</time>
+                </div>
+                <div class="festival-date-row">
+                  <h3>Sutton House</h3>
+                  <time datetime="2027-05-09">Sun 09 May</time>
+                </div>
+                <div class="festival-date-row">
+                  <h3>Round Chapel</h3>
+                  <time datetime="2027-05-15">Sat 15 May</time>
+                </div>
+                <div class="festival-date-row">
+                  <h3>Chat’s Palace</h3>
+                  <time datetime="2027-05-16">Sun 16 May</time>
+                </div>
+                <p class="festival-satellite-events">
+                  <span>SATELLITE EVENTS THROUGHOUT MAY</span>
+                  <span aria-hidden="true">→</span>
+                </p>
               </div>
-              <div class="festival-date-row">
-                <h3>Sutton House</h3>
-                <time datetime="2027-05-09">Sun 09 May</time>
-              </div>
-              <div class="festival-date-row">
-                <h3>Round Chapel</h3>
-                <time datetime="2027-05-15">Sat 15 May</time>
-              </div>
-              <div class="festival-date-row">
-                <h3>Chat’s Palace</h3>
-                <time datetime="2027-05-16">Sun 16 May</time>
-              </div>
-              <p class="festival-satellite-events">
-                <span>SATELLITE EVENTS THROUGHOUT MAY</span>
-                <span aria-hidden="true">→</span>
-              </p>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="contact-section" aria-label="Contact the festival team">
           <div class="contact-card content-card">
             <p class="contact-card-message">Let us know what you’d like to see at</p>
             <a class="contact-card-email" href="mailto:hackneyhistoryfestival@gmail.com">
               hackneyhistoryfestival@gmail.com
             </a>
           </div>
+        </section>
 
-          <section class="join-festival" aria-labelledby="join-festival-heading">
-            <div class="join-festival-card content-card">
-              <h2 class="join-festival-tab" id="join-festival-heading">JOIN OUR FESTIVAL</h2>
+        <section class="home-module home-module--join join-festival" aria-labelledby="join-festival-heading">
+          <div class="join-festival-frame content-card">
+            <h2 class="join-festival-tab" id="join-festival-heading">JOIN OUR FESTIVAL</h2>
 
+            <div class="join-festival-card">
               <div class="join-festival-content">
-                <p class="join-festival-headline">
-                  Bringing the borough’s rich and diverse past to life at venues across Hackney.
-                </p>
-                <p class="join-festival-copy">
-                  The festival features talks, walks, and guided tours showcasing some of the area’s most iconic buildings and spaces.
-                </p>
-                <nav class="join-festival-actions" aria-label="Festival activities">
-                  <a href="#festival-dates-heading">Talks <span aria-hidden="true">→</span></a>
-                  <a href="#festival-dates-heading">Walks <span aria-hidden="true">→</span></a>
-                  <a href="#festival-dates-heading">Guided tours <span aria-hidden="true">→</span></a>
-                </nav>
+              <p class="join-festival-headline">
+                Bringing the borough’s rich and diverse past to life at venues across Hackney.
+              </p>
+              <p class="join-festival-copy">
+                The festival features talks, walks, and guided tours showcasing some of the area’s most iconic buildings and spaces.
+              </p>
+              <nav class="join-festival-actions" aria-label="Festival activities">
+                <a href="#festival-dates-heading">Talks <span aria-hidden="true">→</span></a>
+                <a href="#festival-dates-heading">Walks <span aria-hidden="true">→</span></a>
+                <a href="#festival-dates-heading">Guided tours <span aria-hidden="true">→</span></a>
+              </nav>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <div class="hhf-2026-surface content-card" id="festival-2026-highlights">
+        <section class="home-module home-module--highlights-recap" aria-label="2026 highlights and festival recap">
+          <div class="hhf-2026-frame content-card">
+            <div class="hhf-2026-surface" id="festival-2026-highlights">
             <div class="hhf-2026-composition">
               <div class="hhf-2026-heading" aria-label="2026 Highlights for…">
                 <p class="hhf-2026-year">
@@ -165,10 +170,10 @@
               </figure>
             </div>
           </div>
-        </section>
+          </div>
+          <section class="festival-recap" aria-label="2026 festival recap">
 
-        <section class="festival-recap" aria-label="2026 festival recap">
-          <div class="recap-frame">
+            <div class="recap-frame">
             <div class="recap-panel">
               <div class="recap-overview" aria-label="113 events across the borough">
                 <p class="recap-event-count">113</p>
@@ -237,11 +242,12 @@
             <section class="recap-follow-up" aria-label="Learn more about Hackney History Festival 2026">
               <p>Hackney History Festival 2026 <span aria-hidden="true">→</span></p>
             </section>
-          </div>
+            </div>
+          </section>
         </section>
 
-        <section class="about-us-section" aria-labelledby="about-us-heading">
-          <div class="about-us-card content-card">
+        <section class="home-module home-module--about about-us-section" aria-labelledby="about-us-heading">
+          <div class="about-us-frame content-card">
             <h2 class="about-us-tab card-tab" id="about-us-heading">
               <span class="about-us-type-layer card-tab-layer">
                 <span class="about-us-type-outline card-tab-outline" aria-hidden="true">ABOUT US</span>
@@ -250,7 +256,8 @@
               </span>
             </h2>
 
-            <div class="about-us-copy">
+            <div class="about-us-card">
+              <div class="about-us-copy">
               <h3>A borough with<br>centuries of<br>stories.</h3>
               <div class="about-us-description">
                 <p>
@@ -289,11 +296,12 @@
                 <dd>Listed<br>buildings</dd>
               </div>
             </dl>
+            </div>
           </div>
         </section>
 
-        <section class="festival-on-screen-section" aria-labelledby="festival-on-screen-heading">
-          <div class="festival-on-screen-card content-card">
+        <section class="home-module home-module--screen festival-on-screen-section" aria-labelledby="festival-on-screen-heading">
+          <div class="festival-on-screen-frame content-card">
             <h2 class="festival-on-screen-tab" id="festival-on-screen-heading">
               <span class="festival-on-screen-type-layer">
                 <span class="festival-on-screen-type-outline" aria-hidden="true">FESTIVAL ON SCREEN</span>
@@ -301,7 +309,8 @@
               </span>
             </h2>
 
-            <div class="festival-on-screen-copy">
+            <div class="festival-on-screen-card">
+              <div class="festival-on-screen-copy">
               <h3>Hackney History<br>on YouTube</h3>
               <p>Recordings from this and previous years are being put on our YouTube channel.</p>
             </div>
@@ -321,11 +330,12 @@
               alt="Audience watching a Hackney history talk on screen"
             >
             <p class="festival-on-screen-video-count">170+ videos<br>@HackneyHistoryFestival</p>
+            </div>
           </div>
         </section>
 
-        <section class="newsletter-section" aria-labelledby="newsletter-heading">
-          <div class="newsletter-card content-card">
+        <section class="home-module home-module--newsletter newsletter-section" aria-labelledby="newsletter-heading">
+          <div class="newsletter-frame content-card">
             <h2 class="card-tab" id="newsletter-heading">
               <span class="card-tab-layer">
                 <span class="card-tab-outline" aria-hidden="true">NEWSLETTER</span>
@@ -333,7 +343,8 @@
               </span>
             </h2>
 
-            <div class="newsletter-content">
+            <div class="newsletter-card">
+              <div class="newsletter-content">
               <h3>Hackney History Festival</h3>
               <p>
                 Sign up to our newsletter for all the latest updates, event announcements,
@@ -342,6 +353,7 @@
                 rich and diverse history.
               </p>
               <button class="newsletter-signup" type="button"><span>sign up now</span></button>
+              </div>
             </div>
           </div>
         </section>
