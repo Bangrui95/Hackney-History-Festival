@@ -49,18 +49,15 @@
 
   --involved-ways-space-before: clamp(39px, 3.05vw, 39.12px);
   --involved-ways-space-after: clamp(30px, 2.35vw, 30.5px);
-  --involved-ways-tab-rise: clamp(13.8px, 3.125vw, 47px);
 
   --involved-knowledge-space-before: clamp(38.4px, 3vw, 38.62px);
   --involved-knowledge-space-after: clamp(28px, 2.2vw, 28.5px);
 
   --involved-contact-space-before: clamp(40.4px, 3.16vw, 40.62px);
   --involved-contact-space-after: clamp(30px, 2.35vw, 30.5px);
-  --involved-contact-tab-rise: clamp(16.7px, 3.44vw, 53px);
 
   --involved-newsletter-space-before: clamp(38.4px, 3vw, 38.62px);
   --involved-newsletter-space-after: clamp(29.4px, 2.3vw, 30px);
-  --involved-newsletter-tab-rise: clamp(16.7px, 3.44vw, 53px);
 
   --involved-footer-space-before: clamp(39px, 3.05vw, 39.12px);
 }
@@ -158,10 +155,16 @@
 }
 
 .involved-ways {
-  /* The raised title is outside the card box, so its visual rise is added
-     only to this module's own top space. */
-  padding-top: calc(var(--involved-ways-space-before) + var(--involved-ways-tab-rise));
+  padding-top: var(--involved-ways-space-before);
   padding-bottom: var(--involved-ways-space-after);
+}
+
+.involved-ways-frame,
+.involved-contact-frame,
+.involved-newsletter-frame {
+  --card-inline-start: var(--standard-card-inline-start);
+  --card-inline-end: var(--standard-card-inline-end);
+  container-type: inline-size;
 }
 
 .involved-ways-card {
@@ -268,7 +271,7 @@
 }
 
 .involved-contact-section {
-  padding-top: calc(var(--involved-contact-space-before) + var(--involved-contact-tab-rise));
+  padding-top: var(--involved-contact-space-before);
   padding-bottom: var(--involved-contact-space-after);
 }
 
@@ -335,7 +338,7 @@
   outline-offset: 3px;
 }
 
-.involved-contact-card .card-tab-outline {
+.involved-contact-frame .card-tab-outline {
   -webkit-text-stroke-color: var(--festival-forest);
 }
 
@@ -343,7 +346,7 @@
 .involved-newsletter-section {
   width: var(--involved-content-width);
   margin: 0 auto;
-  padding-top: calc(var(--involved-newsletter-space-before) + var(--involved-newsletter-tab-rise));
+  padding-top: var(--involved-newsletter-space-before);
   padding-bottom: var(--involved-newsletter-space-after);
 }
 
@@ -358,9 +361,11 @@
   max-width: 100%;
 }
 
-.involved-newsletter-card .card-tab {
-  right: var(--card-inline-end);
-  left: auto;
+.involved-newsletter-frame .card-tab {
+  display: flex;
+  justify-content: end;
+  padding-right: var(--card-inline-end);
+  padding-left: 0;
 }
 
 /* Our story */
@@ -377,8 +382,7 @@
   --story-content-width: min(1320px, calc(100% - var(--story-gutter) - var(--story-gutter)));
 
   /* Our story keeps its own visual rhythm. Every module has a separately
-     named responsive before/after value, while raised card titles receive
-     their own visual-rise compensation. */
+     named responsive before/after value. */
   /* The first module has the same normal top padding as the other modules.
      Navigation-level space only supplements that padding when needed. */
   --story-hero-space-before: clamp(39px, 3.05vw, 39.12px);
@@ -390,14 +394,12 @@
 
   --story-clues-space-before: clamp(38.4px, 3vw, 38.62px);
   --story-clues-space-after: clamp(30px, 2.35vw, 30.5px);
-  --story-clues-tab-rise: clamp(13.8px, 3.125vw, 47px);
 
   --story-place-space-before: clamp(38.4px, 3vw, 38.62px);
   --story-place-space-after: clamp(28px, 2.2vw, 28.5px);
 
   --story-stakes-space-before: clamp(40.4px, 3.16vw, 40.62px);
   --story-stakes-space-after: clamp(30px, 2.35vw, 30.5px);
-  --story-stakes-tab-rise: clamp(15.5px, 3.125vw, 53px);
 
   --story-community-space-before: clamp(38.4px, 3vw, 38.62px);
   --story-community-space-after: clamp(29.4px, 2.3vw, 30px);
@@ -407,11 +409,9 @@
 
   --story-cta-space-before: clamp(38.4px, 3vw, 38.62px);
   --story-cta-space-after: clamp(30px, 2.35vw, 30.5px);
-  --story-cta-tab-rise: clamp(16.7px, 3.43vw, 49.5px);
 
   --story-newsletter-space-before: clamp(38.4px, 3vw, 38.62px);
   --story-newsletter-space-after: clamp(29.4px, 2.3vw, 30px);
-  --story-newsletter-tab-rise: clamp(16.7px, 3.44vw, 53px);
 
   --story-footer-space-before: clamp(39px, 3.05vw, 39.12px);
 }
@@ -578,8 +578,17 @@
 }
 
 .story-clues {
-  padding-top: calc(var(--story-clues-space-before) + var(--story-clues-tab-rise));
+  padding-top: var(--story-clues-space-before);
   padding-bottom: var(--story-clues-space-after);
+}
+
+.story-clues-frame,
+.story-stakes-frame,
+.story-cta-frame,
+.story-newsletter-frame {
+  --card-inline-start: var(--standard-card-inline-start);
+  --card-inline-end: var(--standard-card-inline-end);
+  container-type: inline-size;
 }
 
 .story-clues-card {
@@ -686,7 +695,7 @@
 
 /* A deliberately prominent use of the shared feature-card system. */
 .story-stakes {
-  padding-top: calc(var(--story-stakes-space-before) + var(--story-stakes-tab-rise));
+  padding-top: var(--story-stakes-space-before);
   padding-bottom: var(--story-stakes-space-after);
 }
 
@@ -704,10 +713,12 @@
 }
 
 .story-stakes-tab {
-  position: absolute;
-  right: var(--card-inline-end);
-  bottom: calc(100% - var(--standard-card-tab-overlap));
-  margin: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: end;
+  padding-right: var(--card-inline-end);
+  margin: 0 0 calc(-1 * var(--standard-card-tab-overlap));
   color: var(--page-white);
   font-size: var(--standard-card-tab-size);
   font-weight: 900;
@@ -792,7 +803,7 @@
 }
 
 .story-cta-section {
-  padding-top: calc(var(--story-cta-space-before) + var(--story-cta-tab-rise));
+  padding-top: var(--story-cta-space-before);
   padding-bottom: var(--story-cta-space-after);
 }
 
@@ -866,11 +877,11 @@
   outline-offset: 5px;
 }
 
-.story-cta-card .card-tab {
+.story-cta-frame .card-tab {
   font-size: var(--standard-card-tab-size);
 }
 
-.story-cta-card .card-tab-outline {
+.story-cta-frame .card-tab-outline {
   -webkit-text-stroke-width: 0.3em;
 }
 
@@ -878,7 +889,7 @@
 .story-newsletter-section {
   width: var(--story-content-width);
   margin: 0 auto;
-  padding-top: calc(var(--story-newsletter-space-before) + var(--story-newsletter-tab-rise));
+  padding-top: var(--story-newsletter-space-before);
   padding-bottom: var(--story-newsletter-space-after);
 }
 
@@ -920,13 +931,15 @@
   outline-color: var(--page-white);
 }
 
-.story-newsletter-card .card-tab {
-  right: var(--card-inline-end);
-  left: auto;
+.story-newsletter-frame .card-tab {
+  display: flex;
+  justify-content: end;
+  padding-right: var(--card-inline-end);
+  padding-left: 0;
   font-size: var(--standard-card-tab-size);
 }
 
-.story-newsletter-card .card-tab-outline {
+.story-newsletter-frame .card-tab-outline {
   -webkit-text-stroke-color: var(--festival-forest);
   -webkit-text-stroke-width: 0.3em;
 }
