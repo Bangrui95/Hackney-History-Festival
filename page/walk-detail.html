@@ -3,11 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=past-events.html">
-    <script>window.location.replace(`past-events.html${window.location.search}${window.location.hash}`);</script>
     <link rel="icon" type="image/png" href="../icon/LOGO.png?v=1">
-    <meta name="description" content="Guided walks from Hackney History Festival 2026.">
-    <title>Walks — Hackney History Festival</title>
+    <meta name="description" content="Walk details from Hackney History Festival 2026.">
+    <title>Walk details — Hackney History Festival</title>
     <link rel="stylesheet" href="../css/fonts.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="content-page.css">
@@ -15,7 +13,7 @@
     <script src="walks-data.js" defer></script>
     <script src="walks.js" defer></script>
   </head>
-  <body class="content-page content-page--walks">
+  <body class="content-page content-page--walk-detail">
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <div class="site-shell">
@@ -29,22 +27,7 @@
       </header>
 
       <main class="content-page-main" id="main-content">
-        <section class="walks-hero" aria-labelledby="page-title">
-          <p class="walks-kicker">Hackney History Festival 2026</p>
-          <h1 id="page-title">Walks</h1>
-          <p class="walks-intro">Twenty guided walks, quests and outdoor routes across Hackney — each one a different way into the borough’s stories.</p>
-        </section>
-
-        <section class="walks-programme" aria-labelledby="walks-programme-heading">
-          <div class="walks-programme-heading">
-            <h2 id="walks-programme-heading">Find a story on foot.</h2>
-            <div class="walks-programme-copy">
-              <p>Walks 2026</p>
-              <p class="walks-programme-note">All walks were £3. Choose <strong>More</strong> for the full route story, or <strong>Ticket</strong> to visit the original booking page.</p>
-            </div>
-          </div>
-          <ol class="walks-list" id="walks-list" aria-label="Walks programme"></ol>
-        </section>
+        <section class="walk-detail" id="walk-detail" aria-live="polite"></section>
       </main>
 
       <footer class="site-footer" aria-label="Hackney History Festival footer">
@@ -59,7 +42,7 @@
                 <li class="footer-useful-links__nested">Walks</li>
                 <li class="footer-useful-links__nested">Speakers</li>
                 <li class="footer-useful-links__nested">Satellite Events</li>
-                <li class="footer-useful-links__secondary"><a href="past-events.html">Past Events</a></li>
+                <li class="footer-useful-links__secondary"><a href="past-events.html" aria-current="page">Past Events</a></li>
                 <li class="footer-useful-links__secondary"><a href="our-story.html">Our story</a></li>
                 <li class="footer-useful-links__secondary"><a href="get-involved.html">Get involved</a></li>
               </ul>
@@ -87,7 +70,7 @@
 
     <div class="menu-backdrop" aria-hidden="true"></div>
     <nav class="panel menu-panel" id="menu-panel" aria-label="Primary navigation" hidden>
-      <div class="menu-navigation"><div class="menu-primary-links"><button class="menu-section-title" type="button">HISTORY FESTIVAL</button><div class="menu-primary-items"><a href="festival-2026.html">Festival 2026</a><div class="menu-programme-links"><a href="main-programme.html">Main Programme</a><a href="satellite-events.html">Satellite Events</a><a href="speakers.html">Speakers</a></div><button type="button">Festival Videos</button><a href="past-events.html">Past Events</a></div></div><div class="menu-secondary-links"><a href="our-story.html">OUR STORY</a><a href="get-involved.html">GET INVOLVED</a></div></div>
+      <div class="menu-navigation"><div class="menu-primary-links"><button class="menu-section-title" type="button">HISTORY FESTIVAL</button><div class="menu-primary-items"><a href="festival-2026.html">Festival 2026</a><div class="menu-programme-links"><a href="main-programme.html">Main Programme</a><a href="satellite-events.html">Satellite Events</a><a href="speakers.html">Speakers</a></div><button type="button">Festival Videos</button><a href="past-events.html" aria-current="page">Past Events</a></div></div><div class="menu-secondary-links"><a href="our-story.html">OUR STORY</a><a href="get-involved.html">GET INVOLVED</a></div></div>
       <div class="menu-footer"><a href="https://www.hackneysociety.org/" target="_blank" rel="noopener noreferrer"><img class="hackney-society-logo" src="../icon/hackney-society-logo.svg" width="400" height="100" alt="The Hackney Society"></a><div class="menu-social-links" aria-label="Social media"><a class="social-button" href="https://www.facebook.com/people/Hackney-History-Festival/61557135024914/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img class="social-facebook" src="../icon/facebook.svg" width="75" height="72" alt=""></a><a class="social-button" href="https://x.com/HackneyHistFest" target="_blank" rel="noopener noreferrer" aria-label="X"><img class="social-x" src="../icon/x.svg" width="77" height="74" alt=""></a><a class="social-button" href="https://www.instagram.com/hackneyhistoryfest/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img class="social-instagram" src="../icon/instagram.svg" width="77" height="74" alt=""></a><a class="social-button" href="https://www.youtube.com/@HackneyHistoryFestival" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img class="social-youtube" src="../icon/youtube.svg" width="86" height="75" alt=""></a></div></div>
     </nav>
   </body>

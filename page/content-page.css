@@ -1106,3 +1106,548 @@
     margin-left: 0;
   }
 }
+
+/* Walks 2026 */
+.content-page--walks,
+.content-page--walk-detail {
+  --walks-gutter: clamp(24px, 7.3vw, 140px);
+  --walks-content-width: min(1240px, calc(100% - var(--walks-gutter) - var(--walks-gutter)));
+  --walks-hero-space-before: clamp(39px, 3.05vw, 39.12px);
+  --walks-hero-space-after: clamp(29.4px, 2.3vw, 30px);
+  --walks-programme-space-before: clamp(39px, 3.05vw, 39.12px);
+  --walks-programme-space-after: clamp(29.4px, 2.3vw, 30px);
+  --walks-footer-space-before: clamp(39px, 3.05vw, 39.12px);
+}
+
+/* Each event is a standalone card module. These two edges use the same
+ * responsive rhythm as the other editable page modules, so they can map
+ * directly to WordPress's space-above and space-below controls. */
+.content-page--walks {
+  --walk-event-space-before: clamp(19.5px, 1.525vw, 19.56px);
+  --walk-event-space-after: clamp(14.7px, 1.15vw, 15px);
+}
+
+.content-page--walks .content-page-main,
+.content-page--walk-detail .content-page-main {
+  display: block;
+  min-height: 0;
+  padding: 0;
+  overflow: clip;
+  background: var(--page-canvas);
+}
+
+.content-page--walks .site-footer,
+.content-page--walk-detail .site-footer {
+  margin-top: var(--walks-footer-space-before);
+}
+
+.walks-hero,
+.walks-programme-heading,
+.walks-list,
+.walk-detail {
+  width: var(--walks-content-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.walks-hero {
+  padding-top: var(--walks-hero-space-before);
+  padding-bottom: var(--walks-hero-space-after);
+}
+
+.walks-kicker,
+.walks-programme-copy > p:first-child,
+.walk-detail-label {
+  margin: 0;
+  color: var(--festival-forest);
+  font-size: clamp(13px, 1.05vw, 17px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.walks-hero h1 {
+  max-width: 7ch;
+  margin: clamp(12px, 1.25vw, 20px) 0 0;
+  color: var(--festival-forest);
+  font-size: clamp(64px, 9.2vw, 148px);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+  text-transform: uppercase;
+}
+
+.walks-intro {
+  max-width: 34ch;
+  margin: clamp(18px, 2vw, 30px) 0 0;
+  color: var(--festival-forest);
+  font-size: clamp(18px, 1.55vw, 25px);
+  font-weight: 600;
+  line-height: 1.13;
+  letter-spacing: -0.035em;
+}
+
+.walks-programme {
+  padding-top: var(--walks-programme-space-before);
+  padding-bottom: var(--walks-programme-space-after);
+}
+
+.walks-programme-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.walks-programme-copy {
+  max-width: 35ch;
+  margin-top: clamp(18px, 2vw, 30px);
+  text-align: right;
+}
+
+.walks-programme-heading h2 {
+  max-width: none;
+  margin: 0;
+  color: var(--festival-forest);
+  font-size: clamp(38px, 4.5vw, 74px);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.walks-programme-note {
+  max-width: 35ch;
+  margin: 0;
+  color: var(--festival-forest);
+  font-size: clamp(16px, 1.2vw, 20px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.walks-list {
+  margin-top: clamp(30px, 4vw, 58px);
+  padding: 0;
+  list-style: none;
+}
+
+.walk-event-frame {
+  --walk-event-date-space: clamp(34.32px, 4.68cqw, 63.96px);
+  --walk-event-radius: clamp(14px, 2.25cqw, 33px);
+  position: relative;
+  container-type: inline-size;
+  padding: var(--walk-event-space-before) 0 var(--walk-event-space-after);
+}
+
+/* The label remains inside its own card module above the card body. */
+.walk-event-frame::before {
+  display: block;
+  height: var(--walk-event-date-space);
+  content: "";
+}
+
+.walk-event-frame + .walk-event-frame {
+  margin-top: 0;
+}
+
+.walk-event-date {
+  position: absolute;
+  top: var(--walk-event-space-before);
+  z-index: 1;
+  display: inline-block;
+  isolation: isolate;
+  margin: 0;
+  font-size: clamp(44px, 6cqw, 82px);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+  white-space: nowrap;
+  /* Align the visible glyph edge, rather than the font line box, to the card. */
+  transform: translateY(clamp(2px, 0.25cqw, 4px));
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-date {
+  left: clamp(20px, 2.75cqw, 38px);
+  color: var(--festival-green);
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-date {
+  right: clamp(20px, 2.75cqw, 38px);
+  color: var(--festival-forest);
+}
+
+.walk-event-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(16px, 1.8cqw, 26px);
+  min-height: clamp(220px, 20cqw, 312px);
+  padding: clamp(38px, 4.2cqw, 60px) clamp(24px, 4.5cqw, 64px) clamp(28px, 3.1cqw, 46px);
+  border-radius: var(--walk-event-radius);
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-card {
+  color: var(--festival-forest);
+  background: var(--festival-green);
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-card {
+  color: var(--page-white);
+  background: var(--festival-forest);
+}
+
+.walk-event-title,
+.walk-event-time,
+.walk-event-guide,
+.walk-event-actions {
+  margin: 0;
+}
+
+.walk-event-title {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-size: clamp(31px, 4.45cqw, 68px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-title {
+  color: var(--festival-forest);
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-title {
+  color: var(--page-white);
+}
+
+.walk-event-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12ch, auto);
+  gap: clamp(10px, 2.5cqw, 34px);
+  align-items: end;
+}
+
+.walk-event-time,
+.walk-event-guide {
+  font-size: clamp(23px, 3.05cqw, 46px);
+  font-weight: 900;
+  line-height: 0.93;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.walk-event-guide {
+  max-width: 16ch;
+  text-align: right;
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-time,
+.walk-event-frame[data-tone="lime"] .walk-event-guide {
+  color: var(--page-white);
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-time,
+.walk-event-frame[data-tone="forest"] .walk-event-guide {
+  color: var(--festival-green);
+}
+
+.walk-event-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(12px, 1.5cqw, 20px);
+}
+
+.walk-event-action,
+.walk-detail-back,
+.walk-detail-ticket {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.6em;
+  border: 0.1em solid currentcolor;
+  border-radius: 999px;
+  padding: 0.02em 0.38em 0.08em;
+  font-size: clamp(22px, 2.65cqw, 40px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-action {
+  color: var(--page-white);
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-action {
+  color: var(--page-white);
+}
+
+.walk-event-frame[data-tone="lime"] .walk-event-action:hover,
+.walk-event-frame[data-tone="lime"] .walk-event-action:focus-visible {
+  color: var(--festival-green);
+  background: var(--page-white);
+  outline: none;
+}
+
+.walk-event-frame[data-tone="forest"] .walk-event-action:hover,
+.walk-event-frame[data-tone="forest"] .walk-event-action:focus-visible {
+  color: var(--festival-forest);
+  background: var(--page-white);
+  outline: none;
+}
+
+.walk-event-action:focus-visible,
+.walk-detail-back:focus-visible,
+.walk-detail-ticket:focus-visible {
+  outline: 3px solid var(--festival-forest);
+  outline-offset: 4px;
+}
+
+.walk-detail {
+  padding-top: var(--walks-hero-space-before);
+  padding-bottom: var(--walks-programme-space-after);
+}
+
+.walk-detail-back {
+  color: var(--festival-forest);
+  font-size: clamp(17px, 1.5vw, 24px);
+}
+
+.walk-detail-back:hover,
+.walk-detail-back:focus-visible {
+  color: var(--page-white);
+  background: var(--festival-forest);
+  outline: none;
+}
+
+.walk-detail-frame {
+  position: relative;
+  container-type: inline-size;
+  margin-top: clamp(58px, 8cqw, 104px);
+  padding: clamp(58px, 7.5cqw, 104px) clamp(26px, 5.2cqw, 78px) clamp(38px, 5.2cqw, 76px);
+  border-radius: clamp(14px, 2.25cqw, 33px);
+  color: var(--page-white);
+  background: var(--festival-forest);
+}
+
+.walk-detail-date {
+  position: absolute;
+  /* The negative offset is the date label's own line-height. */
+  top: clamp(-81px, -5.46cqw, -41px);
+  left: clamp(20px, 3cqw, 45px);
+  margin: 0;
+  color: var(--festival-forest);
+  font-size: clamp(52px, 7cqw, 104px);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+  white-space: nowrap;
+  /* Match the programme cards: align the visible glyph edge, not its line box. */
+  transform: translateY(clamp(2px, 0.25cqw, 4px));
+}
+
+.walk-detail-label {
+  color: var(--festival-green);
+}
+
+.walk-detail-title {
+  max-width: 18ch;
+  margin: clamp(12px, 1.4cqw, 20px) 0 0;
+  color: var(--festival-green);
+  overflow-wrap: anywhere;
+  font-size: clamp(42px, 6.2cqw, 92px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.walk-detail-meta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(6px, 0.8cqw, 12px) clamp(18px, 2.6cqw, 36px);
+  max-width: 55ch;
+  margin: clamp(26px, 3.4cqw, 48px) 0 0;
+}
+
+.walk-detail-meta dt,
+.walk-detail-meta dd {
+  margin: 0;
+  font-size: clamp(18px, 2.25cqw, 32px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.walk-detail-meta dt {
+  color: var(--festival-green);
+}
+
+.walk-detail-description {
+  max-width: 53ch;
+  margin: clamp(30px, 4cqw, 56px) 0 0;
+  color: var(--page-white);
+  font-size: clamp(18px, 2.2cqw, 32px);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.walk-detail-ticket {
+  margin-top: clamp(30px, 4cqw, 56px);
+  color: var(--festival-green);
+  font-size: clamp(22px, 2.65cqw, 40px);
+}
+
+.walk-detail-ticket:hover,
+.walk-detail-ticket:focus-visible {
+  color: var(--festival-forest);
+  background: var(--festival-green);
+  outline: none;
+}
+
+.walk-detail-error {
+  margin: 0;
+  color: var(--festival-forest);
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 700;
+}
+
+@media (max-width: 800px) {
+  .walks-programme-heading {
+    align-items: flex-start;
+  }
+
+  .walks-programme-copy {
+    text-align: left;
+  }
+
+  .walks-programme-heading h2 {
+    max-width: 8ch;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .walks-programme-note {
+    max-width: 46ch;
+  }
+
+  .walk-event-card {
+    min-height: 0;
+  }
+
+  .walk-event-title {
+    font-size: clamp(31px, 5.3cqw, 54px);
+  }
+
+  .walk-event-time,
+  .walk-event-guide {
+    font-size: clamp(22px, 3.75cqw, 38px);
+  }
+
+  .walk-event-action {
+    font-size: clamp(21px, 3.1cqw, 31px);
+  }
+}
+
+@media (max-width: 560px) {
+  .content-page--walks,
+  .content-page--walk-detail {
+    --walks-gutter: 20px;
+  }
+
+  .walks-hero h1 {
+    font-size: clamp(60px, 20vw, 92px);
+  }
+
+  .walks-programme-heading {
+    align-items: flex-start;
+  }
+
+  .walks-programme-heading h2 {
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
+  .walks-list {
+    width: 100%;
+  }
+
+  .walk-event-frame {
+    --walk-event-date-space: clamp(35.88px, 11.7vw, 58.5px);
+    --walk-event-radius: 18px;
+  }
+
+  .walk-event-date {
+    font-size: clamp(46px, 15vw, 75px);
+  }
+
+  .walk-event-frame[data-tone="lime"] .walk-event-date {
+    left: 20px;
+  }
+
+  .walk-event-frame[data-tone="forest"] .walk-event-date {
+    right: 20px;
+  }
+
+  .walk-event-card {
+    gap: 18px;
+    padding: clamp(36px, 10vw, 52px) 20px 28px;
+    border-radius: var(--walk-event-radius);
+  }
+
+  .walk-event-title {
+    font-size: clamp(31px, 10.3vw, 50px);
+  }
+
+  .walk-event-meta {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .walk-event-time,
+  .walk-event-guide {
+    font-size: clamp(22px, 7.8vw, 38px);
+    text-align: left;
+  }
+
+  .walk-event-guide {
+    max-width: none;
+  }
+
+  .walk-event-action {
+    font-size: clamp(20px, 6.9vw, 31px);
+  }
+
+  .walk-detail-frame {
+    /* Reserve a separate mobile row for the back link before the date label. */
+    margin-top: clamp(58px, 15vw, 76px);
+    padding: clamp(58px, 16vw, 78px) 20px 36px;
+    border-radius: 18px;
+  }
+
+  .walk-detail-date {
+    /* Mobile dates scale with the viewport, so their vertical offset must too.
+       Keep the visible number complete while its baseline meets the card edge. */
+    top: clamp(-64px, -12.5vw, -40px);
+    left: 20px;
+    font-size: clamp(50px, 16vw, 80px);
+  }
+
+  .walk-detail-title {
+    font-size: clamp(39px, 12.5vw, 62px);
+  }
+
+  .walk-detail-meta dt,
+  .walk-detail-meta dd {
+    font-size: clamp(17px, 5.5vw, 27px);
+  }
+
+  .walk-detail-description {
+    font-size: clamp(18px, 5.6vw, 26px);
+  }
+}
